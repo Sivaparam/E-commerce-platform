@@ -1,5 +1,5 @@
 const { schema, model, Schema, Types } = require('mongoose');
-const User = require();
+const User = require('./User');
 const List = require('./List');
 
 const cardSchema = new Schema (

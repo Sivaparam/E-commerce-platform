@@ -1,5 +1,5 @@
 const { Schema, Types } = require('mongoose');
-const Board = require('');
+const Board = require('./Board');
 const Card = require('./Card');
 
 const listSchema = new Schema(
