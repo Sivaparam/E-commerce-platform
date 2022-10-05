@@ -1,6 +1,6 @@
-const { Schema, Types } = require('mongoose');
-const Board = require('./Board');
-const Card = require('./Card');
+const { Schema, model } = require('mongoose');
+
+
 
 const listSchema = new Schema(
     {
@@ -33,4 +33,5 @@ const listSchema = new Schema(
       }
 );
 
-module.exports = listSchema;
+const List = model('List', listSchema);
+module.exports = List;

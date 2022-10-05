@@ -1,11 +1,10 @@
 const { Schema, model } = require('mongoose');
-const List = require('./List');
-const User = require('./User');
+
 const boardSchema = new Schema(
     {
-         title: {
+        title: {
             type: String,
-            required: true, 
+            required: true,
         },
         member: [
             {
@@ -13,7 +12,7 @@ const boardSchema = new Schema(
                 ref: 'User',
             },
         ],
-         list: [
+        list: [
             {
                 type: Schema.Types.ObjectId,
                 ref: 'List',
@@ -21,11 +20,14 @@ const boardSchema = new Schema(
         ],
 
     },
-     {
+    {
         toJSON: {
-          virtuals: true,
+            virtuals: true,
         },
         id: false,
-      }
-)
-module.exports = boardSchema;
+    }
+);
+
+const Board = model('Board', boardSchema);
+
+module.exports = Board;
