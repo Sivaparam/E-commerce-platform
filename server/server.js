@@ -1,12 +1,17 @@
+// import express
 const express = require('express');
+// import the ApolloServer class
 const { ApolloServer } = require('apollo-server-express');
-const path = require('path');
 
+const path = require('path');
+// import the two parts of a GraphQL schema
 const { typeDefs, resolvers } = require('./schemas');
+//connection to database MongoDb
 const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,

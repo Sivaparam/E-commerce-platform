@@ -1,5 +1,7 @@
 const { User, Board, List, Card } = require('../models');
 
+//create the functions that fulfill the queries defined in typedefs.js
+// query would get and return all the documents from the mentioned collection below
 const resolvers = {
     Query: {
         users: async () => {
