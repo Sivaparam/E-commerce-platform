@@ -2,8 +2,8 @@
 const express = require('express');
 // import the ApolloServer class
 const { ApolloServer } = require('apollo-server-express');
-
 const path = require('path');
+const { authMiddleware } = require('./utils/auth');
 // import the two parts of a GraphQL schema
 const { typeDefs, resolvers } = require('./schemas');
 //connection to database MongoDb
@@ -15,6 +15,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: authMiddleware,
 });
 
 app.use(express.urlencoded({ extended: false }));

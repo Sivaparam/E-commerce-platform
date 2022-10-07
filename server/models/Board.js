@@ -2,17 +2,15 @@ const { Schema, model } = require('mongoose');
 
 const boardSchema = new Schema(
     {
-        title: {
+        boardId: {
+            type: Schema.Types.ObjectId,
+            default: () => Types.ObjectId(),
+          },
+        bTitle: {
             type: String,
             required: true,
         },
-        member: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'User',
-            },
-        ],
-        list: [
+        lists: [
             {
                 type: Schema.Types.ObjectId,
                 ref: 'List',

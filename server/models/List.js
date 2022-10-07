@@ -8,16 +8,11 @@ const listSchema = new Schema(
             type: Schema.Types.ObjectId,
             default: () => Types.ObjectId(),
         },
-        title: {
+        lTitle: {
             type: String,
-            required: true, 
+            required: true
         },
-        board: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Board',
-            },
-        ],
+      
         cards: [
             {
                 type: Schema.Types.ObjectId,

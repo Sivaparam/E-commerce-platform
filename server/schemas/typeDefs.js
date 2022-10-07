@@ -1,42 +1,60 @@
 const { gql } = require('apollo-server-express');
 
-//define which fields are accessiable from the models
-// define which queries the front end is allowed to make and what data is returned
 const typeDefs = gql`
   type User {
-    _id: ID
+   userId: ID
     name: String
     email: String
+    password: String
+    boards: [Board]
   }
 
   type Board {
-    _id: ID
-    title: String
-    boards: [Board]
+    boardId: ID
+    bTitle: String
     lists: [List]
   }
 
   type List {
     listId: ID
-    title: String
-    boards: [Board]
+    lTitle: String
     cards: [Card]
   }
 
   type Card {
     cardId: ID
-    title: String
+    cTitle: String
     description: String
-    users: [User]
-    lists: [List]
+   users: [User]
   }
 
   type Query {
     users: [User]
-    boards: [Board]
-    lists: [List]
-    cards: [Card]
+    board: [Board]
+    list: [List]
+    card: [Card]
+      boards(boardId: ID!): Board
+      lists(listId: ID!): List
+      cards(cardId: ID!): Card
+      boardDetails(userId: ID!): Board
   }
+
+  type Mutation {
+      addBoard(userId: ID!, title: String!): Board
+      addList(boardId: ID!, title: String!): List
+      addCard(cTitle: String!, listId: ID!): Card
+      removeCard(cardId: ID!): Card
+      removeList(listId: ID!): List
+      editList(listId: ID!, lTitle: String!): List
+      editCard(cardId: ID!, cTitle: String!, descritpion: String): Card
+    }
+
+
+
+ 
+
+
+  
 `;
 
 module.exports = typeDefs;
