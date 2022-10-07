@@ -1,7 +1,11 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const userSchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.ObjectId,
+      default: () => Types.ObjectId(),
+    },
     name: {
       type: String,
       unique: true,

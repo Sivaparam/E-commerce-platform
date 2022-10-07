@@ -1,5 +1,5 @@
 const Board = require('./Board');
-const User = require('./Card');
+const User = require('./User');
 const List = require('./List');
 const Card = require('./Card');
 
