@@ -3,21 +3,18 @@
       "userId": "111111111111",
       "name": "User1",
       "email": "user1@gmail.com",
-      "password": "password01",
-      "boardId": [11111111, 22222222]
+      "password": "password01"
   },
   {
       "userId": "222222222222",
       "name": "User2",
       "email": "user2@gmail.com",
-      "password": "password02",
-      "boardId": [33333333]
+      "password": "password02"
   },
   {
       "userId": "333333333333",
       "name": "User3",
       "email": "user3@gmail.com",
-      "password": "password03",
-      "boardId": []
+      "password": "password03"
   }
 ]

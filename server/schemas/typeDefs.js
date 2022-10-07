@@ -40,8 +40,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-      addBoard(userId: ID!, title: String!): Board
-      addList(boardId: ID!, title: String!): List
+      addBoard(userId: ID!, bTitle: String!): Board
+      addList(boardId: ID!, lTitle: String!): List
       addCard(cTitle: String!, listId: ID!): Card
       removeCard(cardId: ID!): Card
       removeList(listId: ID!): List
