@@ -35,7 +35,7 @@ const resolvers = {
 
     Mutation: {
         addBoard: async (parent, { bTitle, userId }) => {
-            return Board.create({ boardId, bTitle, userId });
+            return Board.create({ bTitle, userId });
         },
         addList: async (parent, { lTitle, boardId }) => {
             return List.create({ lTitle, listId, boardId });
