@@ -9,8 +9,7 @@ export default function Login({login,error}) {
 <div className="row">
 <div className="col-md-6">
 
-    <form className='form login-form' onSubmit={formSubmit}>
-    <div className='form-inside'>
+    <form className='login-form form' onSubmit={formSubmit}>
         <h2>Login</h2>
         <div className='form-group'>
              <label htmlFor='Name'>Name:</label>
@@ -25,14 +24,12 @@ export default function Login({login,error}) {
             <input type="password" name="password" id="password" onChange={e=> setDetails({...details,password:e.target.value})} value={details.password}></input>
         </div>
         <input className="btn btn-primary" type="submit" value="LOGIN"></input>
-    </div>
     </form>
 </div>
 
 <div className="col-md-6">
 
     <form className='form login-form' onSubmit={formSubmit}>
-    <div className='form-inside'>
         <h2>Signup</h2>
         <div className='form-group'>
              <label htmlFor='Name'>Name:</label>
@@ -47,7 +44,6 @@ export default function Login({login,error}) {
             <input type="password" name="password" id="password" onChange={e=> setDetails({...details,password:e.target.value})} value={details.password}></input>
         </div>
         <input className="btn btn-primary" type="submit" value="LOGIN"></input>
-    </div>
     </form>
 </div>
 </div>
