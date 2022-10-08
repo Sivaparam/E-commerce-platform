@@ -1,16 +1,12 @@
-const { model, Schema, Types } = require('mongoose');
+const { model, Schema } = require('mongoose');
 
 
-const cardSchema = new Schema (
+const cardSchema = new Schema(
     {
-        cardId: {
-            type: Schema.Types.ObjectId,
-            default: () => Types.ObjectId(),
-        },
         cTitle: {
             type: String,
             required: true,
-            
+
         },
         description: {
             type: String,

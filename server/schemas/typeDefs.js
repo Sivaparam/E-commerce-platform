@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
-   userId: ID
+    _id: ID
     username: String
     email: String
     password: String
@@ -15,22 +15,22 @@ const typeDefs = gql`
   }
 
   type Board {
-    boardId: ID
+    _id: ID
     bTitle: String
     lists: [List]
   }
 
   type List {
-    listId: ID
+    _id: ID
     lTitle: String
     cards: [Card]
   }
 
   type Card {
-    cardId: ID
+    _id: ID
     cTitle: String
     description: String
-   users: [User]
+    users: [User]
   }
 
   type Query {
@@ -38,11 +38,11 @@ const typeDefs = gql`
     board: [Board]
     list: [List]
     card: [Card]
-      user(userId:ID!): User
-      boards(boardId: ID!): Board
-      lists(listId: ID!): List
-      cards(cardId: ID!): Card
-      boardDetails(userId: ID!): Board
+    user(userId:ID!): User
+    boards(boardId: ID!): Board
+    lists(listId: ID!): List
+    cards(cardId: ID!): Card
+    boardDetails(boardId: ID!): Board
   }
 
   type Mutation {
@@ -55,14 +55,7 @@ const typeDefs = gql`
       removeList(listId: ID!): List
       editList(listId: ID!, lTitle: String!): List
       editCard(cardId: ID!, cTitle: String!, descritpion: String): Card
-    }
-
-
-
- 
-
-
-  
+    } 
 `;
 
 module.exports = typeDefs;

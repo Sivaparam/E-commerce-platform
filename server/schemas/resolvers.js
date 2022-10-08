@@ -1,5 +1,5 @@
-const { User, Board, List, Card } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
+const { User, Board, List, Card } = require('../models');
 const { signToken } = require('../utils/auth');
 
 //create the functions that fulfill the queries defined in typedefs.js
@@ -7,31 +7,31 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         users: async () => {
-            return await User.find({});
+            return await User.find().populate('boards').populate({
+                path: 'boards',
+                populate: 'lists'
+            });
         },
         board: async () => {
-            return await Board.find({});
+            return await Board.find().populate('lists');
         },
         list: async () => {
-            return await List.find({});
+            return await List.find().populate('cards');
         },
         card: async () => {
-            return await Card.find({});
+            return await Card.find().populate('users');
         },
-        user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId });
-    },
-        boards: async (parents, { userId }) => {
-            return await Board.findById(userId);
+        boards: async (parents, { boardId }) => {
+            return await Board.findById(boardId);
         },
-        lists: async (parents, { boardId }) => {
-            return await List.findById(boardId);
+        lists: async (parents, { listId }) => {
+            return await List.findById(listId);
         },
-        cards: async (parents, { listId }) => {
-            return await Card.findById(listId);
+        cards: async (parents, { cardId }) => {
+            return await Card.findById(cardId);
         },
-        boardDetails: async (parents, { userId }) => {
-            return await board.findById(userId).populate('lists').populate({
+        boardDetails: async (parents, { boardId }) => {
+            return await Board.findOne(boardId).populate('lists').populate({
                 path: 'lists',
                 populate: 'cards'
             });
@@ -39,44 +39,58 @@ const resolvers = {
     },
 
     Mutation: {
-
-      addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
-      return { token, user };
-    },
-    login: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
-
-      if (!user) {
-        throw new AuthenticationError('No user found with this email address');
-      }
-
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
-      }
-
-      const token = signToken(user);
-
-      return { token, user };
-    },
-
-        addBoard: async (parent, { bTitle, userId }) => {
-            return Board.create({ bTitle, userId });
+        addUser: async (parent, { username, email, password }) => {
+            const user = await User.create({ username, email, password });
+            const token = signToken(user);
+            return { token, user };
+          },
+          login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+      
+            if (!user) {
+              throw new AuthenticationError('No user found with this email address');
+            }
+      
+            const correctPw = await user.isCorrectPassword(password);
+      
+            if (!correctPw) {
+              throw new AuthenticationError('Incorrect credentials');
+            }
+      
+            const token = signToken(user);
+      
+            return { token, user };
+          },
+        
+        addBoard: async (parent, { bTitle, uId }) => {
+            const board = await Board.create({ bTitle });
+            await User.findOneAndUpdate(
+                { _id: uId},
+                { $addToSet: { boards: board._id}}
+            );
+            return board;
         },
         addList: async (parent, { lTitle, boardId }) => {
-            return List.create({ lTitle, listId, boardId });
+            const list = await List.create({ lTitle });
+            await Board.findOneAndUpdate(
+                {_id: boardId },
+                { $addToSet: { lists: list._id}}
+            );
+            return list;
         },
         addCard: async (parent, { cTitle, listId }) => {
-            return Card.create({ cTitle, cardId, listId });
+            const card = await Card.create({ cTitle});
+            await List.findOneAndUpdate(
+                { _id: listId},
+                { $addToSet: { cards: card._id}}
+            );
+            return card;
         },
         editList: async (parent, { listId }) => {
             return List.findByIdAndUpdate({ listId, lTitle });
         },
         editCard: async (parent, { cardId }) => {
-            return Card.findByIdAndUpdate({ cardId, cTitle, description, userId, boardId });
+            return Card.findByIdAndUpdate({  cTitle, description });
         },
         removeCard: async (parent, { cardId }) => {
             return Card.findOneAndDelete({ cardId });
@@ -88,3 +102,4 @@ const resolvers = {
 };
 
 module.exports = resolvers;
+

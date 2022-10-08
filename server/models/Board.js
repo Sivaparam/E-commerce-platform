@@ -1,11 +1,8 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const boardSchema = new Schema(
     {
-        boardId: {
-            type: Schema.Types.ObjectId,
-            default: () => Types.ObjectId(),
-          },
+
         bTitle: {
             type: String,
             required: true,

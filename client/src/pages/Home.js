@@ -1,10 +1,10 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Board from '../pages/Board'
-import { QUERY_USERS } from '../utils/queries';
+import { QUERY_USER } from '../utils/queries';
 
 const   Home = () => {
-  const { loading, data } = useQuery(QUERY_USERS);
+  const { loading, data } = useQuery(QUERY_USER);
   const profiles = data?.profiles || [];
   const [create, setCreate] = useState(false);
 
