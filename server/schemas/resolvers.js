@@ -1,4 +1,6 @@
 const { User, Board, List, Card } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
+const { signToken } = require('../utils/auth');
 
 //create the functions that fulfill the queries defined in typedefs.js
 // query would get and return all the documents from the mentioned collection below
@@ -16,6 +18,9 @@ const resolvers = {
         card: async () => {
             return await Card.find({});
         },
+        user: async (parent, { userId }) => {
+      return User.findOne({ _id: userId });
+    },
         boards: async (parents, { userId }) => {
             return await Board.findById(userId);
         },
@@ -34,6 +39,30 @@ const resolvers = {
     },
 
     Mutation: {
+
+      addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      return { token, user };
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('No user found with this email address');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    },
+
         addBoard: async (parent, { bTitle, userId }) => {
             return Board.create({ bTitle, userId });
         },
