@@ -1,0 +1,35 @@
+const { model, Schema, Types } = require('mongoose');
+
+
+const cardSchema = new Schema (
+    {
+        cardId: {
+            type: Schema.Types.ObjectId,
+            default: () => Types.ObjectId(),
+        },
+        cTitle: {
+            type: String,
+            required: true,
+            
+        },
+        description: {
+            type: String,
+        },
+        users: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            },
+        ],
+    },
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        id: false,
+    }
+);
+
+const Card = model('Card', cardSchema);
+
+module.exports = Card;
