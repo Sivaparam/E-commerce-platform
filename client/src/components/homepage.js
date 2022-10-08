@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Board from './Board'
+import Login from "./loginsignup";
 
 function Homepage() {
 const [create, setCreate] = useState(false);
@@ -11,6 +12,7 @@ const handleCreate =  (e) => {
     
     return (
         <div>
+            <Login></Login>
             <p> Agile Board</p>
             <button type="button" onClick={handleCreate}>Create Board</button>
             <Board trigger={create} >
