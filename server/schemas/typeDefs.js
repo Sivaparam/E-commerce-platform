@@ -3,10 +3,15 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type User {
    userId: ID
-    name: String
+    username: String
     email: String
     password: String
     boards: [Board]
+  }
+
+  type Auth {
+    token: ID!
+    user: User
   }
 
   type Board {
@@ -33,6 +38,7 @@ const typeDefs = gql`
     board: [Board]
     list: [List]
     card: [Card]
+      user(userId:ID!): User
       boards(boardId: ID!): Board
       lists(listId: ID!): List
       cards(cardId: ID!): Card
@@ -40,6 +46,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
+      addUser(username: String!, email: String!, password: String!): Auth
+      login(email: String!, password: String!): Auth
       addBoard(userId: ID!, bTitle: String!): Board
       addList(boardId: ID!, lTitle: String!): List
       addCard(cTitle: String!, listId: ID!): Card
