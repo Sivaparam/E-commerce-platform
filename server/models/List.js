@@ -1,18 +1,12 @@
-const { Schema, model, Types } = require('mongoose');
-
-
+const { Schema, model } = require('mongoose');
 
 const listSchema = new Schema(
     {
-        listId: {
-            type: Schema.Types.ObjectId,
-            default: () => Types.ObjectId(),
-        },
         lTitle: {
             type: String,
             required: true
         },
-      
+
         cards: [
             {
                 type: Schema.Types.ObjectId,
@@ -22,10 +16,10 @@ const listSchema = new Schema(
     },
     {
         toJSON: {
-          virtuals: true,
+            virtuals: true,
         },
         id: false,
-      }
+    }
 );
 
 const List = model('List', listSchema);

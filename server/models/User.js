@@ -1,12 +1,8 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
   {
-    // userId: {
-    //   type: Schema.Types.ObjectId,
-    //   default: () => Types.ObjectId(),
-    // },
     username: {
       type: String,
       unique: true,
@@ -22,7 +18,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    board: [
+    boards: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Board',
