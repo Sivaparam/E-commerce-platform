@@ -6,7 +6,7 @@ import { ADD_BOARD } from '../utils/mutations';
 
 function Board() {
     //set value of title using useState to null/ initial title to null
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState({});
     const [errorMessage, setErrorMessage] = useState('Name is required');
     const [board, {error, data}] = useMutation(ADD_BOARD);
 
