@@ -10,17 +10,15 @@ export const QUERY_USER = gql`
   }
 `;
 
-// export const QUERY_USER = gql`
-//   query login($username: String!) {
-//     login(username: $username) {
-//       _id
-//       username
-//       email
-//       thoughts {
-//         _id
-//         thoughtText
-//         createdAt
-//       }
-//     }
-//   }
-// `;
+export const USER_BOARDS = gql`
+  query userboards {
+   users {
+      _id
+      username
+     boards {
+       _id
+       bTitle
+     }
+   }
+  }
+`;

@@ -23,3 +23,21 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const ADD_BOARD = gql`
+  mutation addboard($userId: ID!, $bTitle: String!) {
+    addBoard(userId: $userId, bTitle: $bTitle) {
+    _id
+    bTitle
+    }
+  }
+`;
+
+export const ADD_LIST = gql`
+  mutation addlist($boardId: ID!, $lTitle: String!) {
+    addList(boardId: $boardId, lTitle: $lTitle) {
+      _id
+      lTitle
+    }
+  }
+`;

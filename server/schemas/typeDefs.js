@@ -38,6 +38,7 @@ const typeDefs = gql`
     board: [Board]
     list: [List]
     card: [Card]
+    userBoards: [User]
     user(userId:ID!): User
     boards(boardId: ID!): Board
     lists(listId: ID!): List
