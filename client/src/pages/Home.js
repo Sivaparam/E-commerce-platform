@@ -1,40 +1,31 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import Board from '../pages/Board'
-import { QUERY_USER } from '../utils/queries';
+import Auth from '../utils/auth';
+import { USER_BOARDS } from '../utils/queries';
 
-const   Home = () => {
-  const { loading, data } = useQuery(QUERY_USER);
-  const profiles = data?.profiles || [];
-  const [create, setCreate] = useState(false);
-
-
-const handleCreate =  (e) => {
-    setCreate(true);
-};
+function Home() {
 
   return (
-    <main>
-      <div>
-            <p> Agile Board</p>
-            <button type="button" onClick={handleCreate}>Create Board</button>
-            <Board trigger={create} >
-            <h3>Create Board</h3>
-            </Board>
+    <div>
+      {Auth.loggedIn() ? (
+        <>
+      <section>
+        <h2>Welcome!</h2>
+        <h3>Your Boards!</h3>
+        <div>
+          Display user boards
         </div>
-      {/* <div className="flex-row justify-center">
-        <div className="col-12 col-md-10 my-3">
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <ProfileList
-              profiles={profiles}
-              title="Here's the current roster of friends..."
-            />
-          )}
-        </div>
-      </div> */}
-    </main>
+      </section>
+      <section>
+        <p> Add list </p>
+      </section>
+      </>
+      ) : ( 
+        <div>
+          <p>Please login/signup</p>
+          </div>
+      )}
+    </div>
   );
 };
 

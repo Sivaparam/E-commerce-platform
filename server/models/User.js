@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const Board = require('./Board');
 
 const userSchema = new Schema(
   {
@@ -18,6 +19,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    // boards: [Board.schema],
     boards: [
       {
         type: Schema.Types.ObjectId,
