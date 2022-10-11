@@ -25,11 +25,11 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_BOARD = gql`
-  mutation addboard($userId: ID!, $bTitle: String!) {
-    addBoard(userId: $userId, bTitle: $bTitle) {
-    _id
-    bTitle
-    }
+  mutation addBoard($bTitle: String!) {
+    addBoard(bTitle: $bTitle) {
+      _id
+      bTitle
+   }
   }
 `;
 

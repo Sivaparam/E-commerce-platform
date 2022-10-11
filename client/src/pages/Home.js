@@ -2,30 +2,31 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
 import { USER_BOARDS } from '../utils/queries';
+import BoardList from '../components/BoardList';
 
 function Home() {
+  const { loading, data } = useQuery(USER_BOARDS);
+  console.log(data);
+  const users = data?.users || [];
 
   return (
-    <div>
-      {Auth.loggedIn() ? (
-        <>
-      <section>
-        <h2>Welcome!</h2>
-        <h3>Your Boards!</h3>
-        <div>
-          Display user boards
-        </div>
-      </section>
-      <section>
-        <p> Add list </p>
-      </section>
-      </>
-      ) : ( 
-        <div>
-          <p>Please login/signup</p>
+    <main>
+      <div>
+        {Auth.loggedIn() ? (
+          <div>
+            {loading ? (
+              <div> Loading...</div>
+            ) : (
+              <BoardList boards= {users[0].boards} />
+            )}
           </div>
-      )}
-    </div>
+        ) : (
+          <div>
+            <p> Please login/signup </p>
+          </div>
+        )}
+      </div>
+    </main>
   );
 };
 
