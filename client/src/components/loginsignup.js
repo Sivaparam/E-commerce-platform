@@ -9,7 +9,7 @@ export default function Login({login,error}) {
 <div className="row">
 <div className="col-md-6">
 
-    <form className='login-form form' onSubmit={formSubmit}>
+    <form className='login-style' onSubmit={formSubmit}>
         <h2>Login</h2>
         <div className='form-group'>
              <label htmlFor='Name'>Name:</label>
@@ -29,7 +29,7 @@ export default function Login({login,error}) {
 
 <div className="col-md-6">
 
-    <form className='form login-form' onSubmit={formSubmit}>
+    <form className='login-style' onSubmit={formSubmit}>
         <h2>Signup</h2>
         <div className='form-group'>
              <label htmlFor='Name'>Name:</label>
