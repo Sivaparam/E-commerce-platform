@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Board, List, Card } = require('../models');
-const { populate } = require('../models/Board');
+
 const { signToken } = require('../utils/auth');
 
 //create the functions that fulfill the queries defined in typedefs.js
@@ -24,6 +24,14 @@ const resolvers = {
         //             });
         //             return user;
         // },
+
+        userBoards: async (parent, args, context) => {
+            if (context.user) {
+                const user = await User.findById(context.user._id).populate('boards');
+                return user;
+            }
+            throw new AuthenticationError('Not logged in');
+        },
                       
         board: async () => {
             return await Board.find().populate('lists').populate({
@@ -78,15 +86,18 @@ const resolvers = {
             return { token, user };
         },
 
-        addBoard: async (parent, { bTitle, userId }) => {
+        addBoard: async (parent, { bTitle }, context ) => {
+            if (context.user){
             const board = await Board.create({ bTitle });
-            await User.findOneAndUpdate(
-                { _id: userId },
-                { $addToSet: { boards: board._id } }
+            await User.findByIdAndUpdate( 
+                {_id: context.user._id },
+                { $addToSet: { boards: board } }
             );
             return board;
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
-        addList: async (parent, { lTitle, boardId }) => {
+        addList: async (parent, { lTitle, boardId }, context ) => {
             const list = await List.create({ lTitle });
             await Board.findOneAndUpdate(
                 { _id: boardId },
@@ -102,18 +113,14 @@ const resolvers = {
             );
             return card;
         },
-        editList: async (parent, { listId }) => {
-            return List.findByIdAndUpdate({ listId, lTitle });
-        },
+        
         editCard: async (parent, { cardId }) => {
             return Card.findByIdAndUpdate({ cTitle, description });
         },
         removeCard: async (parent, { cardId }) => {
             return Card.findOneAndDelete({ cardId });
         },
-        removeList: async (parent, { listId }) => {
-            return List.findByIdAndDelete({ listId });
-        },
+        
     },
 };
 

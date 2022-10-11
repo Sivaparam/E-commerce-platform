@@ -19,13 +19,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // boards: [Board.schema],
-    boards: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Board',
-      },
-    ],
+    boards: [Board.schema],
+    // boards: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Board',
+    //   },
+    // ],
   },
 
   {
