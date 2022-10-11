@@ -17,7 +17,7 @@ function Home() {
             {loading ? (
               <div> Loading...</div>
             ) : (
-              <BoardList boards= {users[0].boards} />
+              <BoardList boards= {users.boards} />
             )}
           </div>
         ) : (
