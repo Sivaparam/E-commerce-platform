@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-const Board = require('./Board');
 
 const userSchema = new Schema(
   {
@@ -8,24 +7,25 @@ const userSchema = new Schema(
       type: String,
       unique: true,
       required: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      match: [/^([a-z0-9_.-]+)@([\da-z.-]+).([a-z.]{2,6})$/]
+      match: [/.+@.+\..+/, 'Must match an email address!'],
     },
     password: {
       type: String,
       required: true,
     },
-    boards: [Board.schema],
-    // boards: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Board',
-    //   },
-    // ],
+  
+    boards: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Board',
+      },
+    ],
   },
 
   {
@@ -34,7 +34,7 @@ const userSchema = new Schema(
     },
     id: false,
   }
-)
+);
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;

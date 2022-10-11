@@ -7,7 +7,9 @@ import BoardList from '../components/BoardList';
 function Home() {
   const { loading, data } = useQuery(USER_BOARDS);
   console.log(data);
-  const users = data?.users || [];
+  
+
+  const userBoards = data?.userBoards || [];
 
   return (
     <main>
@@ -17,7 +19,7 @@ function Home() {
             {loading ? (
               <div> Loading...</div>
             ) : (
-              <BoardList boards= {users[0].boards} />
+              <BoardList boards= {userBoards.boards} />
             )}
           </div>
         ) : (
