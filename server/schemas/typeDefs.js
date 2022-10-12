@@ -43,7 +43,7 @@ const typeDefs = gql`
     boards(boardId: ID!): Board
     lists(listId: ID!): List
     cards(cardId: ID!): Card
-    boardDetails(boardId: ID!): Board
+  
   }
 
   type Mutation {

@@ -13,21 +13,11 @@ const resolvers = {
                 populate: 'lists'
             });
         },
-        // userBoards: async () => {
-        //     const user = await User.find().populate('boards');
-        //     return user;
-        // },
-        // userBoards: async (parents, args, context) => {
-        //     const user = await User.findById("6341e3ef1e4f05f682ef3bd8").populate({
-        //                 path: 'boards.lists',
-        //                 populate: 'cards'
-        //             });
-        //             return user;
-        // },
+      
 
         userBoards: async (parent, args, context) => {
             if (context.user) {
-                const user = await User.findById(context.user._id).populate('boards');
+                const user = await User.findOne({_id: context.user._id}).populate('boards');
                 return user;
             }
             throw new AuthenticationError('Not logged in');
@@ -54,12 +44,7 @@ const resolvers = {
         cards: async (parents, { cardId }) => {
             return await Card.findById(cardId);
         },
-        boardDetails: async (parents, { boardId }) => {
-            return await Board.findOne(boardId).populate('lists').populate({
-                path: 'lists',
-                populate: 'cards'
-            });
-        },
+      
     },
 
     Mutation: {
@@ -89,9 +74,9 @@ const resolvers = {
         addBoard: async (parent, { bTitle }, context ) => {
             if (context.user){
             const board = await Board.create({ bTitle });
-            await User.findByIdAndUpdate( 
+            await User.findOneAndUpdate( 
                 {_id: context.user._id },
-                { $addToSet: { boards: board } }
+                { $addToSet: { boards: board._id } }
             );
             return board;
             }
