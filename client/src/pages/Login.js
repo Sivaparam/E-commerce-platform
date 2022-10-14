@@ -5,6 +5,7 @@ import {LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
+
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
@@ -41,20 +42,21 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
+    <main className='flex-row justify-center mb-4'>
+      <div className="col-12 col-lg-10 " >
+        <div className="user-box" >
+          
+          <div className="form-box card-body">
+          <h4 className="card-header user-header p-2">Login</h4>
             {data ? (
               <p>
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
+              <form className='input-group ' onSubmit={handleFormSubmit}>
                 <input
-                  className="form-input"
+                  className="form-input input-field"
                   placeholder="Your email"
                   name="email"
                   type="email"
@@ -62,7 +64,7 @@ const Login = (props) => {
                   onChange={handleChange}
                 />
                 <input
-                  className="form-input"
+                  className="form-input input-field"
                   placeholder="******"
                   name="password"
                   type="password"
@@ -70,7 +72,7 @@ const Login = (props) => {
                   onChange={handleChange}
                 />
                 <button
-                  className="btn btn-block btn-info"
+                  className="submit-btn"
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >
