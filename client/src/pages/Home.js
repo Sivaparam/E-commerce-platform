@@ -12,10 +12,7 @@ function Home() {
   const userBoards = data?.userBoards || [];
 
   return (
-
-    <main className='meeting'>
-      <div>
-
+    
     <main className="flex-row justify-center mb-4">
       <div className="col-10 col-lg-5">
 
