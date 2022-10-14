@@ -12,3 +12,20 @@ query userBoards {
   }
 }
 `;
+
+export const BOARD_DETAILS = gql`
+query getBoardDetails($boardId: ID!) {
+  boards(boardId: $boardId) {
+    _id
+    bTitle
+    lists {
+      _id
+      lTitle
+      cards {
+        _id
+        cTitle
+      }
+    }
+  }
+}
+`;

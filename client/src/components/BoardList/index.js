@@ -13,7 +13,7 @@ const BoardList = ({ boards }) => {
         boards.map((board) => (
           <div key={board._id} className="card mb-3">
             <h4 className="card-header bg-primary text-light p-2 m-0">
-              <Link className="btn btn-lg btn-light m-2" to="/list">
+              <Link className="btn btn-lg btn-light m-2" to={`/list/${board._id}`}>
                 {board.bTitle}
               </Link>
 

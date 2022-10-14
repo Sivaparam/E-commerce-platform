@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Header from './components/Header';
 import Board from './pages/Board';
+import List from './pages/List';
 
 
 // Construct our main GraphQL API endpoint
@@ -64,7 +65,10 @@ function App() {
                 path="/board"
                 element={<Board />}
               />
-
+              <Route
+              path="/list/:boardParam"
+              element={<List />}
+              />
             </Routes>
           </div>
 
