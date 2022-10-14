@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Board, List, Card } = require('../models');
-
+const ObjectId = require('mongodb').ObjectID;
 const { signToken } = require('../utils/auth');
 
 //create the functions that fulfill the queries defined in typedefs.js
@@ -36,7 +36,10 @@ const resolvers = {
             return await Card.find().populate('users');
         },
         boards: async (parents, { boardId }) => {
-            return await Board.findById(boardId);
+            return await Board.findById(boardId).populate('lists').populate({
+                path: 'lists',
+                populate: 'cards'
+            });
         },
         lists: async (parents, { listId }) => {
             return await List.findById(listId);
@@ -104,6 +107,22 @@ const resolvers = {
         },
         removeCard: async (parent, { cardId }) => {
             return Card.findOneAndDelete({ cardId });
+        },
+        dragCard: async (parent, {listId, cardId }) => {
+            const card = await Card.findById(cardId);
+            return await List.updateOne(
+                {_id: listId},
+                { $pull: {cards: {_id: card._id}}}
+                );
+            
+        },   
+        
+        dropCard: async (parent, {listId, cardId }) => {
+            const card = await Card.findById(cardId);
+            return await List.findOneAndUpdate(
+                {_id: listId },
+                {$addToSet: {cards: card._id}}
+            );
         },
         
     },

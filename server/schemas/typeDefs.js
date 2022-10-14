@@ -54,6 +54,8 @@ const typeDefs = gql`
       addCard(cTitle: String!, listId: ID!): Card
       removeCard(cardId: ID!): List
       editCard(cardId: ID!, cTitle: String!, descritpion: String): Card
+      dragCard(listId: ID!, cardId: ID!): List
+      dropCard(listId: ID!, cardId: ID!): List    
     } 
 `;
 
