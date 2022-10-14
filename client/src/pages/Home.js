@@ -10,7 +10,7 @@ function Home() {
   const users = data?.users || [];
 
   return (
-    <main>
+    <main className='meeting'>
       <div>
         {Auth.loggedIn() ? (
           <div>

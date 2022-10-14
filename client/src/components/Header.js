@@ -5,7 +5,6 @@ import Auth from '../utils/auth';
 
 
 
-
 const Header = () => {
   const logout = (event) => {
     event.preventDefault();
@@ -18,8 +17,8 @@ const Header = () => {
 };
 
   return (
-    <header className="p-3 mb-2 bg-primary text-white">
-      <div className="container flex-row justify-space-between-lg justify-center align-center">
+    <header className="p-3 mb-2 bg-primary text-white"  >
+      <div className="container flex-row justify-space-between-lg justify-center align-center" >
         <div>
           <h1 className="m-0" style={{ fontSize: '3rem' }}>
             Agile Board

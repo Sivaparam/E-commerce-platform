@@ -13,7 +13,9 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Header from './components/Header';
 import Board from './pages/Board';
+import './index.css';
 
+import background from "../src/components/img/meeting.jpg"
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -44,7 +46,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="flex-column justify-flex-start min-100-vh">
+        <div className="flex-column justify-flex-start min-100-vh" style={
+          {backgroundImage:`url(${background})`}} >
+            
           <Header />
           <div className="container">
             <Routes>
