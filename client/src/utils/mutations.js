@@ -41,3 +41,30 @@ export const ADD_LIST = gql`
     }
   }
 `;
+
+export const DROP_CARD = gql`
+mutation dropCard($listId: ID!, $cardId: ID!) {
+    dropCard(listId: $listId, cardId: $cardId) {
+      _id
+      lTitle
+    }
+  }
+`;
+
+export const DRAG_CARD = gql`
+mutation dragCard($listId: ID!, $cardId: ID!) {
+    dragCard(listId: $listId, cardId: $cardId) {
+      _id
+      lTitle
+    }
+  }
+`;
+
+export const ADD_CARD = gql`
+mutation addCard($cTitle: String!, $listId: ID!) {
+  addCard(cTitle: $cTitle, listId: $listId) {
+    _id
+    cTitle
+  }
+}
+`;

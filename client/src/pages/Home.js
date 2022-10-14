@@ -7,17 +7,26 @@ import BoardList from '../components/BoardList';
 function Home() {
   const { loading, data } = useQuery(USER_BOARDS);
   console.log(data);
-  const users = data?.users || [];
+  
+
+  const userBoards = data?.userBoards || [];
 
   return (
+
     <main className='meeting'>
       <div>
+
+    <main className="flex-row justify-center mb-4">
+      <div className="col-10 col-lg-5">
+
         {Auth.loggedIn() ? (
           <div>
             {loading ? (
               <div> Loading...</div>
             ) : (
-              <BoardList boards= {users[1].boards} />
+
+              <BoardList boards= {userBoards.boards} />
+
             )}
           </div>
         ) : (

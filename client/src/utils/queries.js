@@ -1,24 +1,31 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_USER = gql`
-  query users {
-    users {
+export const USER_BOARDS = gql`
+query userBoards {
+  userBoards {
+    _id
+    username
+    boards {
       _id
-      username
-      email
+      bTitle
     }
   }
+}
 `;
 
-export const USER_BOARDS = gql`
-  query userboards {
-   users {
+export const BOARD_DETAILS = gql`
+query getBoardDetails($boardId: ID!) {
+  boards(boardId: $boardId) {
+    _id
+    bTitle
+    lists {
       _id
-      username
-     boards {
-       _id
-       bTitle
-     }
-   }
+      lTitle
+      cards {
+        _id
+        cTitle
+      }
+    }
   }
+}
 `;

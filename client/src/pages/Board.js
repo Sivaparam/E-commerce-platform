@@ -25,10 +25,11 @@ function Board() {
             const { data } = await board({
                 variables: { bTitle },
             });
+           
         } catch (error) {
             console.log(e);
         }
-
+        window.location.assign('/');
         console.log(`Board ${bTitle} created`);
         setbTitle('');
 
@@ -46,7 +47,7 @@ function Board() {
             <div className="col-12 col-lg-10">
                 {data ? (
                    <p>
-                   Success! You may now head{' '}
+                   Success! 
                    <Link to="/">back to the homepage.</Link>
                  </p>
                 ) : (

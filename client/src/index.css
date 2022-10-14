@@ -955,7 +955,7 @@ a:hover {
 }
 
 .bg-light {
-  background-color: #d9e9e8 !important;
+  background-color: #5fc6bf !important;
 }
 
 .bg-dark {
@@ -1834,8 +1834,30 @@ h1{
   text-align: center;
   background-color: slategrey;
 }
+
 h4{
   font-weight: bolder;
   font-size: xx-large;
   color: #000000;
+}
+
+#signup{
+  left: 450px;
+}
+
+.overlay{
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+}
+
+.PopUp{
+  position: fixed;
+  left: 25%;
+  top: 30%;
+  width: 30%;
+  border: 1px solid #011627;
+  border-radius: 1em;
+  background-color: #FDFFFC;
+ padding: 10px;
+  color: #011627;
+
 }

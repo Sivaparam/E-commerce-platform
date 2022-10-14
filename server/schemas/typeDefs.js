@@ -43,17 +43,20 @@ const typeDefs = gql`
     boards(boardId: ID!): Board
     lists(listId: ID!): List
     cards(cardId: ID!): Card
-    boardDetails(boardId: ID!): Board
+  
   }
 
   type Mutation {
       addUser(username: String!, email: String!, password: String!): Auth
       login(email: String!, password: String!): Auth
+      addMember(email: String!,boardId: ID!): User
       addBoard(bTitle: String!): Board
       addList(boardId: ID!, lTitle: String!): List
       addCard(cTitle: String!, listId: ID!): Card
       removeCard(cardId: ID!): List
       editCard(cardId: ID!, cTitle: String!, descritpion: String): Card
+      dragCard(listId: ID!, cardId: ID!): List
+      dropCard(listId: ID!, cardId: ID!): List    
     } 
 `;
 

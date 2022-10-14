@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Board, List, Card } = require('../models');
-
+const ObjectId = require('mongodb').ObjectID;
 const { signToken } = require('../utils/auth');
 
 //create the functions that fulfill the queries defined in typedefs.js
@@ -13,21 +13,11 @@ const resolvers = {
                 populate: 'lists'
             });
         },
-        // userBoards: async () => {
-        //     const user = await User.find().populate('boards');
-        //     return user;
-        // },
-        // userBoards: async (parents, args, context) => {
-        //     const user = await User.findById("6341e3ef1e4f05f682ef3bd8").populate({
-        //                 path: 'boards.lists',
-        //                 populate: 'cards'
-        //             });
-        //             return user;
-        // },
+      
 
         userBoards: async (parent, args, context) => {
             if (context.user) {
-                const user = await User.findById(context.user._id).populate('boards');
+                const user = await User.findOne({_id: context.user._id}).populate('boards');
                 return user;
             }
             throw new AuthenticationError('Not logged in');
@@ -46,7 +36,10 @@ const resolvers = {
             return await Card.find().populate('users');
         },
         boards: async (parents, { boardId }) => {
-            return await Board.findById(boardId);
+            return await Board.findById(boardId).populate('lists').populate({
+                path: 'lists',
+                populate: 'cards'
+            });
         },
         lists: async (parents, { listId }) => {
             return await List.findById(listId);
@@ -54,12 +47,7 @@ const resolvers = {
         cards: async (parents, { cardId }) => {
             return await Card.findById(cardId);
         },
-        boardDetails: async (parents, { boardId }) => {
-            return await Board.findOne(boardId).populate('lists').populate({
-                path: 'lists',
-                populate: 'cards'
-            });
-        },
+      
     },
 
     Mutation: {
@@ -68,6 +56,13 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+       addMember: async (parent, { email,boardId }) => {
+         const user = await User.findOneAndUpdate({email: email},
+           { $addToSet: { boards: boardId } }
+         )
+         return{user};
+       },
+
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -89,9 +84,9 @@ const resolvers = {
         addBoard: async (parent, { bTitle }, context ) => {
             if (context.user){
             const board = await Board.create({ bTitle });
-            await User.findByIdAndUpdate( 
+            await User.findOneAndUpdate( 
                 {_id: context.user._id },
-                { $addToSet: { boards: board } }
+                { $addToSet: { boards: board._id } }
             );
             return board;
             }
@@ -119,6 +114,25 @@ const resolvers = {
         },
         removeCard: async (parent, { cardId }) => {
             return Card.findOneAndDelete({ cardId });
+        },
+        dragCard: async (parent, {listId, cardId }) => {
+            //const card = await Card.findOneAndDelete({ _id: cardId });
+            return await List.findOneAndUpdate(
+                {_id: listId},
+                { $pull: {cards: cardId }},
+                
+                { new: true }
+                );
+            
+        },   
+        
+        dropCard: async (parent, {listId, cardId }) => {
+            const card = await Card.findById(cardId);
+            return await List.findOneAndUpdate(
+                {_id: listId },
+                {$addToSet: {cards: cardId}},
+                
+            );
         },
         
     },

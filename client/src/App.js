@@ -13,7 +13,11 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Header from './components/Header';
 import Board from './pages/Board';
+
 import './index.css';
+
+import List from './pages/List';
+
 
 import background from "../src/components/img/meeting.jpg"
 
@@ -68,7 +72,10 @@ function App() {
                 path="/board"
                 element={<Board />}
               />
-
+              <Route
+              path="/list/:boardParam"
+              element={<List />}
+              />
             </Routes>
           </div>
 
