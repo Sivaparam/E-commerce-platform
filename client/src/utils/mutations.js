@@ -68,3 +68,12 @@ mutation addCard($cTitle: String!, $listId: ID!) {
   }
 }
 `;
+
+export const REMOVE_CARD = gql`
+mutation removeCard($cardId: ID!) {
+  removeCard(cardId: $cardId) {
+    _id
+    cTitle
+  }
+}
+`;

@@ -113,7 +113,8 @@ const resolvers = {
             return Card.findByIdAndUpdate({ cTitle, description });
         },
         removeCard: async (parent, { cardId }) => {
-            return Card.findOneAndDelete({ cardId });
+            return await Card.deleteOne(cardId);
+            
         },
         dragCard: async (parent, {listId, cardId }) => {
             //const card = await Card.findOneAndDelete({ _id: cardId });
