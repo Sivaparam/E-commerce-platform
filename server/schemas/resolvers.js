@@ -56,6 +56,13 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+       addMember: async (parent, { email,boardId }) => {
+         const user = await User.findOneAndUpdate({email: email},
+           { $addToSet: { boards: boardId } }
+         )
+         return{user};
+       },
+
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -109,10 +116,12 @@ const resolvers = {
             return Card.findOneAndDelete({ cardId });
         },
         dragCard: async (parent, {listId, cardId }) => {
-            const card = await Card.findById(cardId);
-            return await List.updateOne(
+            //const card = await Card.findOneAndDelete({ _id: cardId });
+            return await List.findOneAndUpdate(
                 {_id: listId},
-                { $pull: {cards: {_id: card._id}}}
+                { $pull: {cards: cardId }},
+                
+                { new: true }
                 );
             
         },   
@@ -121,7 +130,8 @@ const resolvers = {
             const card = await Card.findById(cardId);
             return await List.findOneAndUpdate(
                 {_id: listId },
-                {$addToSet: {cards: card._id}}
+                {$addToSet: {cards: cardId}},
+                
             );
         },
         
