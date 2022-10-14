@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from 'react-router-dom';
 import { BOARD_DETAILS } from "../utils/queries";
-import { ADD_CARD, ADD_LIST} from "../utils/mutations";
+import { ADD_CARD, ADD_LIST, REMOVE_CARD } from "../utils/mutations";
 import CardBlock from '../components/CardBlock';
 import ListPage from '../components/ListPage';
 
@@ -34,6 +34,7 @@ function List() {
 
     const [addCard, { error, data1 }] = useMutation(ADD_CARD);
     const [addList, { error2, data2 }] = useMutation(ADD_LIST);
+    const [removeCard, {error3}] = useMutation(REMOVE_CARD);
 
 
     const handleAddCard = async (e) => {
@@ -86,6 +87,16 @@ function List() {
 
     };
 
+    const handleRemoveCard = async (cardid) => {
+        try {
+          const { data } = await removeCard({
+            variables: { cardId: cardid },
+          });
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
 
     const handleInput = (e) => {
         // Getting the value and name of the input which triggered the change
@@ -104,7 +115,7 @@ function List() {
     return (
 
         <div className="my-2">
-            <h3>{boards.bTitle}</h3>
+            <h4>{boards.bTitle}</h4>
             {showListFrom ? (
              <form className="form">
               <input className="form-input" id={boards._id} type='text' name="listTitle" onChange={handleListInput} value={listTitle} placeholder="List Title"></input>
@@ -123,10 +134,17 @@ function List() {
                     <div className="flex-row" >
                         {boards.lists.map((listDetail, index) => (
                             <ListPage key={index} id={listDetail._id} className='p-3 bg-link m-1'>
-                                <h4>{listDetail.lTitle}</h4>
+                                <h5>{listDetail.lTitle}</h5>
                                 {listDetail.cards.map((cardDetail, index) => (
                                     <CardBlock key={index} id={cardDetail._id} className='p-1 m-1 bg-light' draggable='true'>
-                                        <h5>{cardDetail.cTitle}</h5>
+                                        <h6>{cardDetail.cTitle}
+                                        <button
+                      className="btn btn-sm btn-danger ml-auto"
+                      onClick={() => handleRemoveCard(cardDetail._id)}
+                    >
+                      X
+                    </button>
+                                        </h6>
                                     </CardBlock>
                                 ))}
                                 {showFrom ? (

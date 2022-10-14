@@ -52,7 +52,7 @@ const typeDefs = gql`
       addBoard(bTitle: String!): Board
       addList(boardId: ID!, lTitle: String!): List
       addCard(cTitle: String!, listId: ID!): Card
-      removeCard(cardId: ID!): List
+      removeCard(cardId: ID!): Card
       editCard(cardId: ID!, cTitle: String!, descritpion: String): Card
       dragCard(listId: ID!, cardId: ID!): List
       dropCard(listId: ID!, cardId: ID!): List    
