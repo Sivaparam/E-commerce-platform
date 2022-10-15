@@ -13,8 +13,8 @@ function List() {
     const [listTitle, setListTitle] = useState('');
     const [parentId, setParentId] = useState('');
     const [parentListId, setParentListId] = useState('');
-    const [showFrom, setShowForm ] = useState(false);
-    const [showListFrom, setShowListForm ] = useState(false);
+    const [showFrom, setShowForm] = useState(false);
+    const [showListFrom, setShowListForm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('Name is required');
     const { loading, data } = useQuery(BOARD_DETAILS, {
         variables: { boardId: boardParam },
@@ -22,19 +22,19 @@ function List() {
     console.log(data);
     const boards = data?.boards || [];
 
-    const openForm =  async (e) => {
+    const openForm = async (e) => {
         e.stopPropagation();
-     setShowForm(!showFrom);
+        setShowForm(!showFrom);
     }
 
-    const openListForm =  () => {
+    const openListForm = () => {
         setShowListForm(!showListFrom);
     }
 
 
     const [addCard, { error, data1 }] = useMutation(ADD_CARD);
     const [addList, { error2, data2 }] = useMutation(ADD_LIST);
-    const [removeCard, {error3}] = useMutation(REMOVE_CARD);
+    const [removeCard, { error3 }] = useMutation(REMOVE_CARD);
 
 
     const handleAddCard = async (e) => {
@@ -89,13 +89,14 @@ function List() {
 
     const handleRemoveCard = async (cardid) => {
         try {
-          const { data } = await removeCard({
-            variables: { cardId: cardid },
-          });
+            const { data } = await removeCard({
+                variables: { cardId: cardid },
+            });
         } catch (err) {
-          console.error(err);
+            console.error(err);
         }
-      };
+        window.location.reload();
+    };
 
 
     const handleInput = (e) => {
@@ -117,16 +118,16 @@ function List() {
         <div className="my-2">
             <h4>{boards.bTitle}</h4>
             {showListFrom ? (
-             <form className="form">
-              <input className="form-input" id={boards._id} type='text' name="listTitle" onChange={handleListInput} value={listTitle} placeholder="List Title"></input>
+                <form className="form">
+                    <input className="form-input" id={boards._id} type='text' name="listTitle" onChange={handleListInput} value={listTitle} placeholder="List Title"></input>
 
-              <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
-              <button className="btn btn-light m-1" onClick={handleAddList}>Add List</button>
-            </form >
-             ) : (
-             <button type="button" id={boards._id} className="btn btn-lg btn-light m-2" onClick={openListForm}>Add List</button>
-            ) }
-           
+                    <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
+                    <button className="btn btn-light m-1" onClick={handleAddList}>Add List</button>
+                </form >
+            ) : (
+                <button type="button" id={boards._id} className="btn btn-lg btn-light m-2" onClick={openListForm}>Add List</button>
+            )}
+
             <div>
                 {loading ? (
                     <div> Loading...</div>
@@ -138,28 +139,28 @@ function List() {
                                 {listDetail.cards.map((cardDetail, index) => (
                                     <CardBlock key={index} id={cardDetail._id} className='p-1 m-1 bg-light' draggable='true'>
                                         <h6>{cardDetail.cTitle}
-                                        <button
-                      className="btn btn-sm btn-danger ml-auto"
-                      onClick={() => handleRemoveCard(cardDetail._id)}
-                    >
-                      X
-                    </button>
+                                            <button
+                                                className="btn btn-sm ml-auto floatright"
+                                                onClick={() => handleRemoveCard(cardDetail._id)}
+                                            >
+                                                X
+                                            </button>
                                         </h6>
                                     </CardBlock>
                                 ))}
                                 {showFrom ? (
                                     <form className="form">
-                                            <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
+                                        <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
 
-                                            <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
-                                            <button className="btn btn-light m-1" onClick={handleAddCard}>Submit</button>
-                                        </form >
+                                        <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
+                                        <button className="btn btn-light m-1" onClick={handleAddCard}>Submit</button>
+                                    </form >
                                 ) : (
-                                <button type="button" id={listDetail._id} className="btn btn-lg btn-light m-2" onClick={openForm}>Add Card</button>
-                                ) }
+                                    <button type="button" id={listDetail._id} className="btn btn-lg btn-light m-2" onClick={openForm}>Add Card</button>
+                                )}
                             </ListPage>
                         ))}
-                        
+
                     </div>
                 )}
 
