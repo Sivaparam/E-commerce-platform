@@ -57,7 +57,8 @@ function Board() {
 
                             <form className="form">
                                 <input className="form-input" type='text' name="bTitle" onChange={handleInput} value={bTitle} placeholder="Enter Board Title"></input>
-                                <button className="btn btn-block btn-info" type="submit" onClick={handleSubmit}>Submit</button>
+                                
+                                <button className="submit-btn" type="submit" onClick={handleSubmit}>Submit</button>
                             </form >
 
                         </div>
