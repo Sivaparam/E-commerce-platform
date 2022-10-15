@@ -24,6 +24,20 @@ export const ADD_USER = gql`
   }
 `;
 
+export const ADD_MEMBER = gql`
+ mutation AddMember($email: String!, $boardId: ID!) {
+  addMember(email: $email, boardId: $boardId) {
+    _id
+    username
+    email
+    boards {
+      _id
+    }
+  }
+}
+  
+`;
+
 export const ADD_BOARD = gql`
   mutation addBoard($bTitle: String!) {
     addBoard(bTitle: $bTitle) {

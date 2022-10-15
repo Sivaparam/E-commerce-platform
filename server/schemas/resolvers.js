@@ -60,7 +60,8 @@ const resolvers = {
          const user = await User.findOneAndUpdate({email: email},
            { $addToSet: { boards: boardId } }
          )
-         return{user};
+         const token = signToken(user);
+         return user;
        },
 
         login: async (parent, { email, password }) => {
