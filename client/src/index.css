@@ -1861,3 +1861,7 @@ h4{
   color: #011627;
 
 }
+
+.floatright {
+float: right;
+}
