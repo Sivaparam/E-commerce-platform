@@ -1939,9 +1939,7 @@ justify-content: space-around;
   --hover:#b00;
   --main:#000;
   --bg:#f0f0f0;
-  --size:99vmin;
   --ratio:1/1.1;
-  font-size: calc(var(--size)/100);
 }
 .landingpage{
   margin:0;
