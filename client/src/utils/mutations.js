@@ -34,9 +34,25 @@ export const ADD_MEMBER = gql`
       _id
     }
   }
-}
-  
+} 
 `;
+
+export const CARD_MEMBER = gql`
+mutation Mutation($cardId: ID!, $email: String!) {
+  cardMember(cardId: $cardId, email: $email) {
+    cTitle
+    _id
+    users {
+      _id
+      email
+      username
+    }
+  }
+}
+`;
+
+
+
 
 export const ADD_BOARD = gql`
   mutation addBoard($bTitle: String!) {

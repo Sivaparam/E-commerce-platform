@@ -64,6 +64,18 @@ const resolvers = {
          return user;
        },
 
+      cardMember: async (parent, { cardId , email }) => {
+      const userId = await User.findOne({ email: email });
+      const card = await Card.findOneAndUpdate(
+        { _id: cardId },
+        {
+          $addToSet: { users: userId._id },
+        },
+       )
+         return card;
+       },
+
+
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 

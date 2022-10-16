@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from 'react-router-dom';
 import { BOARD_DETAILS } from "../utils/queries";
-import { ADD_CARD, ADD_LIST, REMOVE_CARD } from "../utils/mutations";
+import { ADD_CARD, ADD_LIST, REMOVE_CARD,CARD_MEMBER } from "../utils/mutations";
 import CardBlock from '../components/CardBlock';
 import ListPage from '../components/ListPage';
 import Popup from 'reactjs-popup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FaUserPlus } from 'react-icons/fa';
+
 
 function List() {
 
@@ -17,6 +20,9 @@ function List() {
     const [showFrom, setShowForm] = useState(false);
     const [showListFrom, setShowListForm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('Name is required');
+     const [member, setMember ] = useState(false);
+     const [cardMember, { error12 }] = useMutation(CARD_MEMBER);
+     const [email, setEmail] = useState('');
 
     const { loading, data } = useQuery(BOARD_DETAILS, {
         variables: { boardId: boardParam },
@@ -97,6 +103,27 @@ function List() {
         window.location.reload();
     };
 
+    // Function to add member to cards
+    //  const handleAddcardMember = async (cardid) => {
+    //     try {
+    //         const { data } = await cardMember({
+    //             variables: { email: email,cardId: cardid },
+    //         });
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    //     window.location.reload();
+    // };
+
+    //  const handleMemberInput = (e) => {
+    //     // Getting the value and name of the input which triggered the change
+    //     const { value } = e.target;
+    //     setEmail(value);
+       
+        
+        // e.preventDefault();
+
+    // };
 
     const handleInput = (e) => {
         // Getting the value and name of the input which triggered the change
@@ -144,20 +171,29 @@ function List() {
                                         setShowForm(a1)
                                     }}>
 
+
+
                                         <h6>{cardDetail.cTitle}
-                                            <button
-                                                className="btn btn-sm ml-auto floatright"
-                                                onClick={() => handleRemoveCard(cardDetail._id)}
+                                           
+                                        {/* Adding member to cards */}
+                                        {/* {/* <Popup trigger={<button type='button' className="btn btn-sm btn-light m-2"><FaUserPlus/></button>} position="right top">
+                                        <form style={{background:'#555555'}}className="form">
+                                        <input className="form-input" id="email" type='email' name="email" onChange={handleMemberInput} value={email} placeholder="Member Email"></input>
+                                       <button className="btn btn-light m-1" onClick={() => handleAddcardMember(cardDetail._id)}>Submit</button>{member ? (<p>Group member is added</p>) : <p></p> }
+                                       </form >
+                    
+                                        </Popup> */}
+                                         <button className="btn btn-sm ml-auto" onClick={() => handleRemoveCard(cardDetail._id)}
                                             >
                                                 X
-                                            </button>
-                                        </h6>
-                                    </CardBlock>
+                                            </button> 
+                                         </h6>
+                                        </CardBlock>
+                                              ))}
+                                
 
-                                ))}
-
-                                <Popup trigger={<button type="button" id={listDetail._id} className="btn btn-lg btn-light m-2">Add Card</button>} position='bottom center'>
-                                    <form className="form">
+                                <Popup trigger={<button style={{marginLeft:'50px'}}type="button" id={listDetail._id} className="btn btn-md btn-light m-2">Add Card</button>} position='bottom center'>
+                                    <form style={{background:'#555555'}} className="form">
                                         <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
 
                                         <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
