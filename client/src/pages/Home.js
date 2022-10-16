@@ -4,9 +4,6 @@ import Auth from '../utils/auth';
 import { USER_BOARDS } from '../utils/queries';
 import BoardList from '../components/BoardList';
 
-import '../pages/style/style.css';
-
-
 function Home() {
   const { loading, data } = useQuery(USER_BOARDS);
   console.log(data);
@@ -16,15 +13,8 @@ function Home() {
 
   return (
     
-
-    <main 
-    className="flex-row justify-center"
-    >
-      <div >
-
     <main className="flex-row mb-4">
       
-
 
         {Auth.loggedIn() ? (
           <div className='w-100'>
@@ -37,28 +27,9 @@ function Home() {
             )}
           </div>
         ) : (
-          
-        
-        
-          <div class="landingpage">
-          <div class="container">
-              <div class="intro">
-              <h3 class="intro-title">planning made easy</h3>
-     <p>
-         From business, school or personal goals our boards will help. Development awaits,Sign up or login to get started.
-     </p>
-     <p>
-         Login or signup, its free!
-     </p>
-          <div className="landingPage">
-            <div className="landingContent">
-          <img src='https://t3.ftcdn.net/jpg/04/53/15/70/240_F_453157099_WDyakeU2ZoDdLDnfH8gVlhy4zI5fgcwX.jpg' width={300} height={250}></img>
-            </div>
+          <div>
+            <p> Please login/signup </p>
           </div>
-          </div>
-          </div>
-          </div>
-          
         )}
     
     </main>
