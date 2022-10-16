@@ -43,7 +43,7 @@ const Login = (props) => {
 
   return (
     <main className='flex-row justify-center mb-4'>
-      <div className="col-12 col-lg-10 user-box" >
+      <div className="col-12 col-lg-10 " >
         <div className="user-box" >
           
           <div className="form-box card-body">
