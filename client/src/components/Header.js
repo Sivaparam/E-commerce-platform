@@ -17,41 +17,67 @@ const Header = () => {
 };
 
   return (
-    <header className="p-3 mb-2 bg-primary text-white"  >
-      <div className="container flex-row justify-space-between-lg justify-center align-center" >
-        <div>
-          <h1 className="m-0" style={{ fontSize: '3rem' }}>
-            Agile Board
-          </h1>
-          <p className="m-0"> Manage Your Project </p>
-                    
-        </div>
-        <div>
-          {Auth.loggedIn() ? (
-            <>
-            <div>
-            <Link className="btn btn-lg btn-light m-2" to="/">
-               Home
-            </Link>
-            </div>
-            
-            <button className="btn btn-lg btn-light m-2" onClick={logout}>
-              Logout
-            </button>
-            </>
-          ) : (
-            <>
-              <Link className="btn btn-lg btn-primary m-2" to="/login">
-                Login
+
+
+   
+   <div class="navigation-bar">
+  <div class='navTitle'>
+    <h1>
+      Agile Board
+    </h1>
+  </div>
+      <div>
+        {Auth.loggedIn() ? (
+          <>
+        <ul>   
+          <li class='list active'>
+          <a>
+         <Link class="btn btn-lg btn-light m-2" to="/">
+          <span class='text'> Home</span>
+          </Link>
+          </a>
+        </li>
+          <li class='list'>
+           <a>
+          <button class="btn btn-lg btn-light m-2" onClick={logout}>
+          <span class='text' >  Logout</span>
+          </button>
+          </a>
+          </li>
+          </ul>
+          
+          </>
+        ) : (
+          <>
+           <ul>
+            <li class='list'>
+              <a>
+              <Link to="/login">
+                <span class='icon'>LogIn</span>
+                <span class='text'>  Login</span>
               </Link>
-              <Link className="btn btn-lg btn-light m-2" to="/signup">
-                Signup
-              </Link>
-            </>
-          )}
-        </div>
+              </a>
+                </li>
+                  <li class='list'>
+                    <a>
+                    <Link to="/signup">
+                    <span class='icon'>SignUp</span>
+                    <span class='text'> Signup</span>
+                    </Link>
+                    </a>
+                    </li>
+                    <div class="indicator"></div>
+              </ul>
+           
+           
+           
+          </>
+        )}
       </div>
-    </header>
+ 
+ </div>
+   
+
   );
 };
 
