@@ -40,6 +40,7 @@ useEffect(()=>{
         </div>
           {Auth.loggedIn() ? (
             <>
+
             <ul>
             <li className='list active'>
               <a>
@@ -48,6 +49,13 @@ useEffect(()=>{
              </Link>
             </a>
             </li>
+
+            <div>
+            <Link className="btn btn-lg btn-light m-2" to="/">
+               Home
+            </Link>
+            </div>
+
             
             <li className='list'>
               <a>

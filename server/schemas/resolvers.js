@@ -60,7 +60,8 @@ const resolvers = {
          const user = await User.findOneAndUpdate({email: email},
            { $addToSet: { boards: boardId } }
          )
-         return{user};
+         const token = signToken(user);
+         return user;
        },
 
         login: async (parent, { email, password }) => {
@@ -93,38 +94,45 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
         addList: async (parent, { lTitle, boardId }, context ) => {
+            if (context.user) {
             const list = await List.create({ lTitle });
             await Board.findOneAndUpdate(
                 { _id: boardId },
                 { $addToSet: { lists: list._id } }
             );
             return list;
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
-        addCard: async (parent, { cTitle, listId }) => {
+        addCard: async (parent, { cTitle, listId }, context ) => {
+            if (context.user) {
             const card = await Card.create({ cTitle });
             await List.findOneAndUpdate(
                 { _id: listId },
                 { $addToSet: { cards: card._id } }
             );
             return card;
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
         
-        editCard: async (parent, { cardId }) => {
-            return Card.findByIdAndUpdate({ cTitle, description });
+        editCard: async (parent, { cardId }, context ) => {
+            if (context.user) {
+             return Card.findByIdAndUpdate({ cTitle, description });
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
         removeCard: async (parent, { cardId }) => {
             return await Card.findOneAndDelete( { _id: cardId });
             
         },
         dragCard: async (parent, {listId, cardId }) => {
-            //const card = await Card.findOneAndDelete({ _id: cardId });
+            
             return await List.findOneAndUpdate(
                 {_id: listId},
                 { $pull: {cards: cardId }},
-                
                 { new: true }
                 );
-            
         },   
         
         dropCard: async (parent, {listId, cardId }) => {

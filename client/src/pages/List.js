@@ -5,6 +5,10 @@ import { BOARD_DETAILS } from "../utils/queries";
 import { ADD_CARD, ADD_LIST, REMOVE_CARD } from "../utils/mutations";
 import CardBlock from '../components/CardBlock';
 import ListPage from '../components/ListPage';
+import Popup from 'reactjs-popup';
+import { BsFillPencilFill } from 'react-icons/bs';
+import { BsFillTrashFill } from 'react-icons/bs';
+
 
 function List() {
 
@@ -16,10 +20,11 @@ function List() {
     const [showFrom, setShowForm] = useState(false);
     const [showListFrom, setShowListForm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('Name is required');
+
     const { loading, data } = useQuery(BOARD_DETAILS, {
         variables: { boardId: boardParam },
     });
-    console.log(data);
+
     const boards = data?.boards || [];
 
     const openForm = async (e) => {
@@ -31,11 +36,9 @@ function List() {
         setShowListForm(!showListFrom);
     }
 
-
     const [addCard, { error, data1 }] = useMutation(ADD_CARD);
     const [addList, { error2, data2 }] = useMutation(ADD_LIST);
     const [removeCard, { error3 }] = useMutation(REMOVE_CARD);
-
 
     const handleAddCard = async (e) => {
         e.preventDefault();
@@ -59,7 +62,6 @@ function List() {
         window.location.reload();
         console.log(`Card ${Title} created`);
         setTitle('');
-
     };
 
     const handleAddList = async (e) => {
@@ -98,6 +100,10 @@ function List() {
         window.location.reload();
     };
 
+    const handleEditCard = async () => {
+        alert('coming soon');
+    }
+
 
     const handleInput = (e) => {
         // Getting the value and name of the input which triggered the change
@@ -116,14 +122,16 @@ function List() {
     return (
 
         <div className="my-2">
-            <h4>{boards.bTitle}</h4>
+            <h4 className="text-white">{boards.bTitle}</h4>
             {showListFrom ? (
-                <form className="form">
+       
+                <form className="form form-width">
                     <input className="form-input" id={boards._id} type='text' name="listTitle" onChange={handleListInput} value={listTitle} placeholder="List Title"></input>
 
                     <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
-                    <button className="btn btn-light m-1" onClick={handleAddList}>Add List</button>
+                    <button className="btn btn-light m-1" onClick={handleAddList}>Add </button>
                 </form >
+              
             ) : (
                 <button type="button" id={boards._id} className="btn btn-lg btn-light m-2" onClick={openListForm}>Add List</button>
             )}
@@ -134,21 +142,38 @@ function List() {
                 ) : (
                     <div className="flex-row" >
                         {boards.lists.map((listDetail, index) => (
-                            <ListPage key={index} id={listDetail._id} className='p-3 bg-link m-1'>
-                                <h5>{listDetail.lTitle}</h5>
+                            <ListPage key={index} id={listDetail._id} className='liststyle' >
+                                <h5 className="p-2 m-1 h-1">{listDetail.lTitle}</h5>
+
                                 {listDetail.cards.map((cardDetail, index) => (
-                                    <CardBlock key={index} id={cardDetail._id} className='p-1 m-1 bg-light' draggable='true'>
-                                        <h6>{cardDetail.cTitle}
-                                            <button
-                                                className="btn btn-sm ml-auto floatright"
-                                                onClick={() => handleRemoveCard(cardDetail._id)}
-                                            >
-                                                X
-                                            </button>
-                                        </h6>
+                                    
+                                    <CardBlock key={index} id={cardDetail._id} className='cardstyle' draggable='true'>
+
+                                        <div className="title">{cardDetail.cTitle}</div>
+                                          <div className="cardtools">
+                                            
+                                                <button className="btn btn-sm" onClick={handleEditCard}><BsFillPencilFill /></button>
+                                                <button className="btn btn-sm" onClick={() => handleRemoveCard(cardDetail._id)}><BsFillTrashFill /></button>
+                                            
+                                            </div> 
+                                        
+                                       
                                     </CardBlock>
+
                                 ))}
-                                {showFrom ? (
+
+                                <Popup trigger={<button type="button" id={listDetail._id} className="btn btn-lg btn-light w-100">add card</button>} position='bottom center'>
+                                    
+                                    <form className="form">
+                                        <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
+
+                                        <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
+                                        <button className="btn btn-light m-1" onClick={handleAddCard}>Submit</button>
+                                    </form >
+                                   
+                                </Popup>
+                                
+                                {/* {showFrom ? (
                                     <form className="form">
                                         <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
 
@@ -156,8 +181,8 @@ function List() {
                                         <button className="btn btn-light m-1" onClick={handleAddCard}>Submit</button>
                                     </form >
                                 ) : (
-                                    <button type="button" id={listDetail._id} className="btn btn-lg btn-light m-2" onClick={openForm}>Add Card</button>
-                                )}
+                                    <button type="button" id={listDetail._id} className="btn btn-lg btn-light m-2" onClick{openForm}>Add Card</button>
+                                )} */}
                             </ListPage>
                         ))}
 
@@ -168,9 +193,6 @@ function List() {
             </div>
 
         </div>
-
-
-
     )
 };
 export default List;
