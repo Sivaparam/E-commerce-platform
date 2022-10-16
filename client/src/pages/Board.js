@@ -35,6 +35,11 @@ function Board() {
 
     };
 
+    const handleCancel = (e) => {
+        e.preventDefault();
+        window.location.assign('/');
+    }
+
     const handleInput = (e) => {
         // Getting the value and name of the input which triggered the change
         const { value } = e.target;
@@ -44,24 +49,26 @@ function Board() {
     return (
 
         <main className="flex-row justify-center mb-4">
-            <div className="col-12 col-lg-10">
+            <div className="col-5 col-lg-5">
                 {data ? (
                    <p>
                    Success! 
                    <Link to="/">back to the homepage.</Link>
                  </p>
                 ) : (
-                    <div className="card">
-                        <h4 className="card-header bg-dark text-light p-2">Create Board</h4>
-                        <div className="card-body">
+                    <div className="my-2">
+                        <h4 className="bg-dark text-light p-2">Create Board</h4>
+                        
 
                             <form className="form">
                                 <input className="form-input" type='text' name="bTitle" onChange={handleInput} value={bTitle} placeholder="Enter Board Title"></input>
-                                
-                                <button className="submit-btn" type="submit" onClick={handleSubmit}>Submit</button>
+                                <div className="w-100">
+                                <button className="btn btn-light m-1" type="submit" onClick={handleCancel}>Cancel</button>
+                                <button className="btn btn-light m-1" type="submit" onClick={handleSubmit}>Submit</button>
+                                </div>
                             </form >
 
-                        </div>
+                       
                     </div>
                 )}
                 {error && (
