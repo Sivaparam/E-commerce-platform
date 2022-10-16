@@ -1931,3 +1931,63 @@ justify-content: space-around;
  
  
 }
+
+/*landing page*/
+
+:root{
+  --link:#000;
+  --hover:#b00;
+  --main:#000;
+  --bg:#f0f0f0;
+  --size:99vmin;
+  --ratio:1/1.1;
+  font-size: calc(var(--size)/100);
+}
+.landingpage{
+  margin:0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--bg);
+  color:var(--main)
+}
+.container{
+  width: calc(var(--size)* var(--ratio));
+  margin:0 auto;
+}
+.logo{
+  width:150px;
+  padding:10px 0;
+  cursor:pointer;
+  border: 3px solid var(--main);
+  position: relative;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2.5px;
+  transition:all 0.2s;
+}
+.logo:hover{
+  background: var(--main);
+  color:var(--bg)
+}
+
+.intro{
+  width:100%;
+  text-align: center;
+  overflow: hidden;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.intro-title{
+  color:var(--main);
+  font-size: 5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 10vmin;
+}
+
+.intro-title p {
+  font-size: 10px;
+}
