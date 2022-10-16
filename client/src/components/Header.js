@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 // import '../../styles/header.css';
 import Auth from '../utils/auth';
 
-import '../pages/style/style.css';
 
 
 const Header = () => {
@@ -17,90 +16,43 @@ const Header = () => {
     setCreate(true);
 };
 
-useEffect(()=>{
-  const script = document.createElement('script');
-
-  script.src="./testIndicator.js";
-  script.async=true;
-  
-  document.body.appendChild(script);
-
-  return()=>{
-    document.body.removeChild(script);
-  }
-},[]);
-
-
   return (
-    <div className="navigation-bar">
-        <div className='navTitle'>
-          <h1 className="m-0" >
+    <header className="p-3 mb-2 bg-primary text-white"  >
+      <div className="container flex-row justify-space-between-lg justify-center align-center" >
+        <div>
+          <h1 className="m-0" style={{ fontSize: '3rem' }}>
             Agile Board
-          </h1>      
+          </h1>
+          <p className="m-0"> Manage Your Project </p>
+                    
         </div>
+        <div>
           {Auth.loggedIn() ? (
             <>
-
-            <ul>
-            <li className='list active'>
-              <a>
-              <Link to="/board">
-               <span className='text'>   Create Board</span>
-             </Link>
-            </a>
-            </li>
-
             <div>
             <Link className="btn btn-lg btn-light m-2" to="/">
                Home
             </Link>
             </div>
-
             
-            <li className='list'>
-              <a>
-              <button onClick={logout}>
-               <span className='text' >  Logout</span>
-             </button>
-             </a>
-            </li>
-          </ul>
+            <button className="btn btn-lg btn-light m-2" onClick={logout}>
+              Logout
+            </button>
             </>
           ) : (
             <>
-            <ul>
-              <li className='list login'>
-                <a>
-              <Link to="/login">
-              <span className='icon'>LogIn</span>
-              <span className='text'>  Login</span>
+              <Link className="btn btn-lg btn-primary m-2" to="/login">
+                Login
               </Link>
-               </a>
-              </li>
-                <li>
-                  
-                </li>
-              <li className='list'>
-                <a>
-              <Link to="/signup">
-              <span className='icon'>SignUp</span>
-              <span className='text'> Signup</span> 
+              <Link className="btn btn-lg btn-light m-2" to="/signup">
+                Signup
               </Link>
-                </a>
-              </li>
-              <div class="indicator"></div>
-            </ul>
             </>
           )}
-    </div>
+        </div>
+      </div>
+    </header>
   );
 };
-
-
-
-
-
-
-
 
 export default Header;
