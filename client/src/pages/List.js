@@ -6,6 +6,8 @@ import { ADD_CARD, ADD_LIST, REMOVE_CARD } from "../utils/mutations";
 import CardBlock from '../components/CardBlock';
 import ListPage from '../components/ListPage';
 import Popup from 'reactjs-popup';
+import { BsFillPencilFill } from 'react-icons/bs';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 
 function List() {
@@ -98,6 +100,10 @@ function List() {
         window.location.reload();
     };
 
+    const handleEditCard = async () => {
+        alert('coming soon');
+    }
+
 
     const handleInput = (e) => {
         // Getting the value and name of the input which triggered the change
@@ -146,8 +152,8 @@ function List() {
                                         <div className="title">{cardDetail.cTitle}</div>
                                           <div className="cardtools">
                                             
-                                                <button className="btn btn-sm">e</button>
-                                                <button className="btn btn-sm" onClick={() => handleRemoveCard(cardDetail._id)}></button>
+                                                <button className="btn btn-sm" onClick={handleEditCard}><BsFillPencilFill /></button>
+                                                <button className="btn btn-sm" onClick={() => handleRemoveCard(cardDetail._id)}><BsFillTrashFill /></button>
                                             
                                             </div> 
                                         
@@ -156,7 +162,7 @@ function List() {
 
                                 ))}
 
-                                <Popup trigger={<button type="button" id={listDetail._id} className="btn btn-lg btn-light w-100">add a card</button>} position='bottom center'>
+                                <Popup trigger={<button type="button" id={listDetail._id} className="btn btn-lg btn-light w-100">add card</button>} position='bottom center'>
                                     
                                     <form className="form">
                                         <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
