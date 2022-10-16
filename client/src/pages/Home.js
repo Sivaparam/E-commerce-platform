@@ -27,9 +27,21 @@ function Home() {
             )}
           </div>
         ) : (
-          <div>
-            <p> Please login/signup </p>
-          </div>
+          
+          <div class="landingpage">
+<div class="container">
+    <div class="intro">
+        <h3 class="intro-title">planning made easy</h3>
+            <p>
+                From business, school or personal goals our boards will help. Development awaits,Sign up or login to get started.
+            </p>
+            <p>
+                Login or signup, its free!
+            </p>
+    </div>
+    </div>
+    </div>
+          
         )}
     
     </main>
