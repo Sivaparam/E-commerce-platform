@@ -1749,6 +1749,7 @@ h1{
   background-position: center;
   background-size:cover;
   position:absolute;
+  
 }
 
 .form-box{
@@ -1760,6 +1761,7 @@ h1{
   background: white;
   padding: 5px;
   overflow: hidden ;
+  box-shadow: 5px 10px #979494;
 }
 
 .button-box{
@@ -1833,6 +1835,7 @@ h1{
 .user-header{
   text-align: center;
   background-color: slategrey;
+  border-radius: 10px;
 }
 
 h4{
