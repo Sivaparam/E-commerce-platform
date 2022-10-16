@@ -29,9 +29,9 @@ function Home() {
         ) : (
           
           <div class="landingpage">
-<div className="container">
-    <div className="intro">
-        <h3 className="intro-title">planning made easy</h3>
+<div class="container">
+    <div class="intro">
+        <h3 class="intro-title">planning made easy</h3>
             <p>
                 From business, school or personal goals our boards will help. Development awaits,Sign up or login to get started.
             </p>
