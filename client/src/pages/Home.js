@@ -13,11 +13,11 @@ function Home() {
 
   return (
     
-    <main className="flex-row justify-center mb-4">
-      <div className="col-10 col-lg-5">
+    <main className="flex-row mb-4">
+      
 
         {Auth.loggedIn() ? (
-          <div>
+          <div className='w-100'>
             {loading ? (
               <div> Loading...</div>
             ) : (
@@ -31,7 +31,7 @@ function Home() {
             <p> Please login/signup </p>
           </div>
         )}
-      </div>
+    
     </main>
   );
 };
