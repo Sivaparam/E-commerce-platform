@@ -20,8 +20,8 @@ const Header = () => {
 
 
    
-   <div class="navigation-bar">
-  <div class='navTitle'>
+   <div className="navigation-bar">
+  <div className='navTitle'>
     <h1>
       Agile Board
     </h1>
@@ -30,17 +30,17 @@ const Header = () => {
         {Auth.loggedIn() ? (
           <>
         <ul>   
-          <li class='list active'>
+          <li className='list active'>
           <a>
-         <Link class="btn btn-lg btn-light m-2" to="/">
-          <span class='text'> Home</span>
+         <Link to="/">
+          <span className='text'> Home</span>
           </Link>
           </a>
         </li>
-          <li class='list'>
+          <li className='list'>
            <a>
-          <button class="btn btn-lg btn-light m-2" onClick={logout}>
-          <span class='text' >  Logout</span>
+          <button className="btn btn-lg btn-light m-2" onClick={logout}>
+          <span className='text' >  Logout</span>
           </button>
           </a>
           </li>
@@ -50,23 +50,23 @@ const Header = () => {
         ) : (
           <>
            <ul>
-            <li class='list'>
+            <li className='list'>
               <a>
               <Link to="/login">
-                <span class='icon'>LogIn</span>
-                <span class='text'>  Login</span>
+                <span className='icon'>LogIn</span>
+                <span className='text'>  Login</span>
               </Link>
               </a>
                 </li>
-                  <li class='list'>
+                  <li className='list'>
                     <a>
                     <Link to="/signup">
-                    <span class='icon'>SignUp</span>
-                    <span class='text'> Signup</span>
+                    <span className='icon'>SignUp</span>
+                    <span className='text'> Signup</span>
                     </Link>
                     </a>
                     </li>
-                    <div class="indicator"></div>
+                    <div className="indicator"></div>
               </ul>
            
            
