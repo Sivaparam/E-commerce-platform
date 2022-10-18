@@ -95,7 +95,7 @@ function List() {
         } catch (error) {
             console.log(e);
         }
-        window.location.reload(false);
+        window.location.reload();
         console.log(`List ${listTitle} created`);
         setListTitle('');
 
