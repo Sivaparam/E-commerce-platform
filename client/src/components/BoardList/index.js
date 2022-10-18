@@ -5,25 +5,17 @@ import { useMutation } from '@apollo/client';
 import { VIEW_MEMBER } from '../../utils/queries';
 import { ADD_MEMBER } from "../../utils/mutations";
 import Popup from 'reactjs-popup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { FaUserFriends } from 'react-icons/fa';
 import Member from '../Member';
-// import { useParams } from 'react-router-dom';
+
 
 const BoardList = ({ boards }) => {
  
   const [email, setEmail] = useState('');
   const [addMember, { error }] = useMutation(ADD_MEMBER);
   const [member, setMember] = useState(false);
-  // const { loading, memdata } = useQuery(VIEW_MEMBER, {
-  //       variables: { boardId: boardParam },
-  //   });
-  //  const { loading, memdata } = useQuery(VIEW_MEMBER, {
-  //       variables: { boardId: boardParam },
-  //   });
-  //       console.log(memdata); 
 
-  //  const boardmember = memdata?.boardMember || [];
 
 console.log({boards});
 
@@ -69,11 +61,11 @@ const handleView = async (board) => {
     <>
       <h3 className='text-white'>Your Boards!</h3>
 
-      <div >
+      {/* <div >
         <Link className='btn btn-lg btn-light m-2' to="/board">
           <span> Create Board </span>
         </Link>
-      </div>
+      </div> */}
       <div className='flex-row justify-space-between'>
 
       {boards &&
@@ -84,11 +76,9 @@ const handleView = async (board) => {
               <Link className="btn btn-lg boardcolor w-100" to={`/list/${board._id}`}>
                 {board.bTitle}
               </Link>
-           {/* {loading ? (
-              <div> Loading...</div>
-            ) : ( */}
+          
               <> 
-              <><Popup trigger={<button type='button' className="btn btn-lg btn-light m-2"> Add/View <FaUserFriends /></button>}
+              <Popup trigger={<button type='button' className="btn btn-lg btn-light m-2"> Add/View <FaUserFriends /></button>}
                     position="right center">
                     <form style={{background:"#49564d",width:"250px"}} >
                       
@@ -97,8 +87,9 @@ const handleView = async (board) => {
                       {member ? (<p>Group member is added</p>) : <p></p>}
                       <Member boardId={board._id} />
                     </form>
-                  </Popup></></>
-          {/* // )} */}
+                  </Popup>
+                  </>
+         
             </h6>
 
                
