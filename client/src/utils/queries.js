@@ -13,6 +13,16 @@ query userBoards {
 }
 `;
 
+export const VIEW_MEMBER = gql`
+query Query($boardId: ID!) {
+  boardMember(boardId: $boardId) {
+    username
+    _id
+    email
+  }
+}
+`;
+
 export const BOARD_DETAILS = gql`
 query getBoardDetails($boardId: ID!) {
   boards(boardId: $boardId) {

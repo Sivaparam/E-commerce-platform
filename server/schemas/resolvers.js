@@ -26,6 +26,19 @@ const resolvers = {
             throw new AuthenticationError('Not logged in');
         },
 
+
+          boardMember: async (parent, { boardId }, context ) => {
+             if (context.user) {
+            const board = await Board.findById(boardId);
+            return await User.find({boards: {$elemMatch : {$eq: board._id } }})
+        }
+             throw new AuthenticationError('Not logged in');
+        },
+
+
+                      
+     
+
         board: async (parent, args, context) => {
             if (context.user) {
                 return await Board.find().populate('lists').populate({
@@ -34,6 +47,7 @@ const resolvers = {
                 });
             }
             throw new AuthenticationError('Not logged in');
+
         },
 
         list: async (parent, args, context) => {
@@ -92,6 +106,18 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!');
         },
+
+      cardMember: async (parent, { cardId , email }) => {
+      const userId = await User.findOne({ email: email });
+      const card = await Card.findOneAndUpdate(
+        { _id: cardId },
+        {
+          $addToSet: { users: userId._id },
+        },
+       )
+         return card;
+       },
+
 
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });

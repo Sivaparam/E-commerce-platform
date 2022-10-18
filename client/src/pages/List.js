@@ -220,7 +220,6 @@ function List() {
                                 {/* {showFrom ? (
                                     <form className="form">
                                         <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
-
                                         <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
                                         <button className="btn btn-light m-1" onClick={handleAddCard}>Submit</button>
                                     </form >
