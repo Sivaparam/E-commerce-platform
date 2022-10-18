@@ -34,8 +34,19 @@ query getBoardDetails($boardId: ID!) {
       cards {
         _id
         cTitle
+        description
       }
     }
+  }
+}
+`;
+
+export const CARD_DETAILS = gql`
+query querycard {
+  card {
+    _id
+    cTitle
+    description
   }
 }
 `;

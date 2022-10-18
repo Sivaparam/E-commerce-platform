@@ -66,21 +66,22 @@ const handleView = async (board) => {
   };
 
   return (
-<>
+    <>
       <h3 className='text-white'>Your Boards!</h3>
-    
+
       <div >
         <Link className='btn btn-lg btn-light m-2' to="/board">
-         <span> Create Board </span>
+          <span> Create Board </span>
         </Link>
       </div>
       <div className='flex-row justify-space-between'>
+
       {boards &&
         boards.map((board) => (
           <div key={board._id} className="boardContainer mb-3">
 
             <h6 className="text-light p-1 m-0 boardstyle">
-              <Link className="btn btn-lg btn-light w-100" to={`/list/${board._id}`}>
+              <Link className="btn btn-lg boardcolor w-100" to={`/list/${board._id}`}>
                 {board.bTitle}
               </Link>
            {/* {loading ? (
@@ -107,6 +108,7 @@ const handleView = async (board) => {
         </div>
    </>
    
+
   );
 };
 

@@ -56,7 +56,7 @@ const typeDefs = gql`
       addList(boardId: ID!, lTitle: String!): List
       addCard(cTitle: String!, listId: ID!): Card
       removeCard(cardId: ID!): Card
-      editCard(cardId: ID!, cTitle: String!, descritpion: String): Card
+      editCard(cardId: ID!, title: String!, desc: String): Card
       dragCard(listId: ID!, cardId: ID!): List
       dropCard(listId: ID!, cardId: ID!): List    
     } 
