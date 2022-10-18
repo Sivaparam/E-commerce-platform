@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Header from './components/Header';
 import Board from './pages/Board';
+import Member from './components/Member';
 
 import './index.css';
 
@@ -75,6 +76,10 @@ function App() {
               <Route
               path="/list/:boardParam"
               element={<List />}
+              />
+              <Route
+              path="/members/:boardParam"
+              element={<Member />}
               />
             </Routes>
           </div>

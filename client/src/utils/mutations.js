@@ -37,6 +37,8 @@ export const ADD_MEMBER = gql`
 } 
 `;
 
+
+
 export const CARD_MEMBER = gql`
 mutation Mutation($cardId: ID!, $email: String!) {
   cardMember(cardId: $cardId, email: $email) {

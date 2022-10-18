@@ -22,6 +22,16 @@ const resolvers = {
             }
             throw new AuthenticationError('Not logged in');
         },
+
+          boardMember: async (parent, { boardId }, context ) => {
+             if (context.user) {
+            const board = await Board.findById(boardId);
+            return await User.find({boards: {$elemMatch : {$eq: board._id } }})
+        }
+             throw new AuthenticationError('Not logged in');
+        },
+
+
                       
         board: async () => {
             return await Board.find().populate('lists').populate({
