@@ -91,3 +91,13 @@ mutation removeCard($cardId: ID!) {
   }
 }
 `;
+
+export const EDIT_CARD = gql`
+mutation editcard($cardId: ID!, $title: String!, $desc: String) {
+  editCard(cardId: $cardId, title: $title, desc: $desc) {
+    _id
+    cTitle
+    description
+  }
+}
+`;

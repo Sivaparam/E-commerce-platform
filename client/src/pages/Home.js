@@ -15,7 +15,6 @@ function Home() {
     
     <main className="flex-row mb-4">
       
-
         {Auth.loggedIn() ? (
           <div className='w-100'>
             {loading ? (
