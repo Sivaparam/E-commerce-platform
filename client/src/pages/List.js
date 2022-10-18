@@ -95,7 +95,7 @@ function List() {
         } catch (error) {
             console.log(e);
         }
-        window.location.assign(`/list/${boardParam}`);
+        window.location.reload();
         console.log(`List ${listTitle} created`);
         setListTitle('');
 
