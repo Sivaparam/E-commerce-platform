@@ -77,6 +77,10 @@ function App() {
               path="/list/:boardParam"
               element={<List />}
               />
+               <Route
+              path="/list"
+              element={<List />}
+              />
               <Route
               path="/members/:boardParam"
               element={<Member />}

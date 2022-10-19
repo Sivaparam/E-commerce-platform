@@ -73,7 +73,7 @@ const handleView = async (board) => {
           <div key={board._id} className="boardContainer mb-3">
 
             <h6 className="text-light p-1 m-0 boardstyle">
-              <Link className="btn btn-lg boardcolor w-100" to={`/list/${board._id}`}>
+              <Link className="btn btn-lg boardcolor w-100" to="/list" state={ {boardParam: board._id }}>
                 {board.bTitle}
               </Link>
           

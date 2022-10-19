@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { BOARD_DETAILS } from "../utils/queries";
 import { ADD_CARD, ADD_LIST, REMOVE_CARD, EDIT_CARD } from "../utils/mutations";
 import CardBlock from '../components/CardBlock';
@@ -10,9 +10,13 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import { BsFillTrashFill } from 'react-icons/bs';
 
 
+
 function List() {
 
-    const { boardParam } = useParams();
+    // const { boardParam } = useParams();
+    const location = useLocation();
+    const {boardParam} = location.state;
+    console.log(boardParam);
     const [Title, setTitle] = useState('');
     const [listTitle, setListTitle] = useState('');
     const [cardTitle, setCardTitle] = useState('');
