@@ -100,7 +100,7 @@ function List() {
         } catch (error) {
             console.log(error);
         }
-        window.location.reload();
+        document.location.reload();
         console.log(`List ${listTitle} created`);
         setListTitle('');
 
