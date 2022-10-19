@@ -69,7 +69,7 @@ function List() {
             });
 
         } catch (error) {
-            console.log(e);
+            console.log(error);
         }
         window.location.reload();
         console.log(`Card ${Title} created`);
@@ -93,7 +93,7 @@ function List() {
             });
 
         } catch (error) {
-            console.log(e);
+            console.log(error);
         }
         window.location.reload();
         console.log(`List ${listTitle} created`);
@@ -110,7 +110,7 @@ function List() {
             });
 
         } catch (error) {
-            console.log(e);
+            console.log(error);
         }
         window.location.reload();
         setErrorMessage('');
