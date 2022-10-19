@@ -5,12 +5,12 @@ function CardBlock (props) {
     const dragStart = e => {
         const target = e.target;
         const parent_id = e.target.parentElement.id;
-        console.log(`source board id: ${parent_id}`);
+        console.log(`source list id: ${parent_id}`);
         e.dataTransfer.setData('card_id', target.id+'#'+parent_id);
         console.log(`Card ID taht is being dragged: ${target.id}`);
-        setTimeout(() => {
-            target.style.display = "none";
-        }, 0);
+        // setTimeout(() => {
+        //     target.style.display = "none";
+        // }, 0);
     }
 
     const dragOver = e => {
