@@ -21,7 +21,7 @@ console.log({boards});
 
   if (!boards.length) {
 
-    return <h3> No boards yet</h3>;
+    return <h3 className='text-white'> No boards yet</h3>;
   }
 
 const handleView = async (board) => {

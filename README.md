@@ -12,6 +12,8 @@
 
 -[Installation Steps](#installation-steps)
 
+-[Database](#database)
+
 -[Mock-up Screen](#mock-up-screen)
 
 ## Acceptance-criteria
@@ -39,10 +41,13 @@ npm init
 * To invoke, in terminal give command - npm run develop 
 
 * Future development: 
- - Add members to card 
+ - Assign members to card 
  - Move the list/board to archived folder
- - Email notification when any card is added to user
- - Email notification when any board is shared with user
+ - Email notification when any card/board is shared/added to user
+
+ ## Database 
+
+ ![alt text](./client/src/images/DB.png)
  
  ## Mock-up screen
 
