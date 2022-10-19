@@ -32,8 +32,10 @@ function Home() {
           )}
         </div>
       ) : (
-        <div>
-          <p> Please login/signup </p>
+        <div className='landingPage'>
+          <p className='LandingTitle'>Planning                       <span className='titleEmphasis'>simplified</span></p>
+          <p className='LandingMessage'> Build, plan and manage projects from the ground up with our boards. Development awaits,                <span>Sign up or login to get started.</span> </p>
+          <img className='LandingImage' src='https://api.beaconagency.co.uk/wp-content/uploads/2021/03/bigtechauth-e1616501916204.png' width={600} height={500}></img>
         </div>
       )}
 
