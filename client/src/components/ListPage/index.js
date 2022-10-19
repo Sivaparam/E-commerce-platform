@@ -20,7 +20,7 @@ const [dropCard, {error1, data1 }] = useMutation(DROP_CARD);
       
         e.target.appendChild(card);
         const destination_id = target.id;
-        console.log(`board id where card is dropped ${destination_id}`);
+        console.log(`list id where card is dropped ${destination_id}`);
         try {
             const { data } = await moveCard({
                 variables: { listId: parentBoard_id, cardId:card_id },
