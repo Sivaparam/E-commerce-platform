@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+import { useParams, useLocation } from 'react-router-dom';
+import { BOARD_DETAILS } from "../../utils/queries";
 import { ADD_CARD, ADD_LIST, REMOVE_CARD, EDIT_CARD } from "../../utils/mutations";
 import CardBlock from '../CardBlock';
 import ListPage from '../ListPage';
 import Popup from 'reactjs-popup';
-import { BsFillPencilFill, BsFillTrashFill  } from 'react-icons/bs';
+import { BsFillPencilFill } from 'react-icons/bs';
+import { BsFillTrashFill } from 'react-icons/bs';
 
-const ListCard = ({ boards }) => {
-   
+
+
+const ListCard = ({boards}) => {
+    console.log(`boards inside listcard ${boards}`);
+
+    // const { boardParam } = useParams();
+    const location = useLocation();
+    const {boardParam} = location.state;
+    console.log(boardParam);
     const [Title, setTitle] = useState('');
     const [listTitle, setListTitle] = useState('');
     const [cardTitle, setCardTitle] = useState('');
@@ -17,17 +27,29 @@ const ListCard = ({ boards }) => {
     const [parentCardId, setParentCardId] = useState('');
     const [showFrom, setShowForm] = useState(false);
     const [descform, setDescForm] = useState(false);
+    const [showListFrom, setShowListForm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('Title Required');
 
-       const openForm = async (e) => {
+    // const { loading, data } = useQuery(BOARD_DETAILS, {
+    //     variables: { boardId: boardParam },
+    // });
+
+    // const boards = data?.boards || [];
+
+    const openForm = async (e) => {
         e.stopPropagation();
         setShowForm(!showFrom);
     }
 
     const openDescForm = async (e) => {
+
         setDescForm(!descform);
     }
-   
+
+    const openListForm = () => {
+        setShowListForm(!showListFrom);
+    }
+
     const [addCard, { error, data1 }] = useMutation(ADD_CARD);
     const [addList, { error2, data2 }] = useMutation(ADD_LIST);
     const [removeCard, { error3 }] = useMutation(REMOVE_CARD);
@@ -44,6 +66,7 @@ const ListCard = ({ boards }) => {
             errorMessage();
             return;
         }
+
 
         try {
             const { data } = await addCard({
@@ -80,10 +103,12 @@ const ListCard = ({ boards }) => {
         window.location.reload();
         console.log(`List ${listTitle} created`);
         setListTitle('');
+
     };
 
     const handleCardDesc = async (e, title, descrip) => {
         e.preventDefault();
+
         try {
             const { data } = await editcard({
                 variables: { title: cardTitle ? cardTitle : title, cardId: parentCardId, desc: Description ? Description : descrip },
@@ -137,48 +162,69 @@ const ListCard = ({ boards }) => {
 
     return (
 
-        <div className="flex-row">
+       <div className="flex-row">
+ {boards.lists.map((listDetail, index) => (
+ <ListPage key={index} id={listDetail._id} className='liststyle' >
+       <h5 className="p-2 m-1 h-1">{listDetail.lTitle}</h5>
+       {listDetail.cards.map((cardDetail, index) => (
+        <CardBlock key={index} id={cardDetail._id} className='cardstyle' draggable='true'>
+          <div className="title">{cardDetail.cTitle}</div>
+              <div className="cardtools">
+             <Popup trigger={<button type="button" id={cardDetail._id} className="btn btn-sm"><BsFillPencilFill /></button>} position='top center'>
+                 <form className="form">
+                   <input className="form-input" id={cardDetail._id} type="text" name="cardTitle" onChange={handleCardTitle} defaultValue={cardDetail.cTitle} placeholder={cardDetail.cTitle ? cardDetail.cTitle : "Enter Card Title"} ></input>
+                   <input className="form-input" id={cardDetail._id} type='text' name="Description" onChange={handleDescInput} defaultValue={cardDetail.description} placeholder={cardDetail.description ? cardDetail.description : "Enter Card Description"} ></input>
+                    <button className="btn btn-light m-1" onClick={openDescForm}>Cancel</button>
+                    <button className="btn btn-light m-1" onClick={e => handleCardDesc(e, cardDetail.cTitle, cardDetail.description)}>Submit</button>
+               </form >
+               </Popup>
+            <button className="btn btn-sm" onClick={() => handleRemoveCard(cardDetail._id)}><BsFillTrashFill /></button>
+            </div>
+       </CardBlock>
+       ))}
+      <Popup trigger={<button type="button" id={listDetail._id} className="btn btn-lg btn-light w-100">add card</button>} position='bottom center'>
+           <form className="form">
+                  <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
+           <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
+             <button className="btn btn-light m-1" onClick={handleAddCard}>Submit</button>
+              </form >
 
-            {boards.lists.map((listDetail, index) => (
+         </Popup>
 
-                <ListPage key={index} id={listDetail._id} className='liststyle' >
-                    <h5 className="p-2 m-1 h-1">{listDetail.lTitle}</h5>
+                            
+  </ListPage>
+    ))}
 
-                    {listDetail.cards.map((cardDetail, index) => (
+ 
+         
 
-                        <CardBlock key={index} id={cardDetail._id} className='cardstyle' draggable='true'>
-                            <div className="title">{cardDetail.cTitle}</div>
-                            <div className="cardtools">
 
-                                <Popup trigger={<button type="button" id={cardDetail._id} className="btn btn-sm"><BsFillPencilFill /></button>} position='top center'>
-                                    <form className="form">
-                                        <input className="form-input" id={cardDetail._id} type="text" name="cardTitle" onChange={handleCardTitle} defaultValue={cardDetail.cTitle} placeholder={cardDetail.cTitle ? cardDetail.cTitle : "Enter Card Title"} ></input>
-                                        <input className="form-input" id={cardDetail._id} type='text' name="Description" onChange={handleDescInput} defaultValue={cardDetail.description} placeholder={cardDetail.description ? cardDetail.description : "Enter Card Description"} ></input>
-                                        <button className="btn btn-light m-1" onClick={openDescForm}>Cancel</button>
-                                        <button className="btn btn-light m-1" onClick={e => handleCardDesc(e, cardDetail.cTitle, cardDetail.description)}>Submit</button>
-                                    </form >
-                                </Popup>
-
-                                <button className="btn btn-sm" onClick={() => handleRemoveCard(cardDetail._id)}><BsFillTrashFill /></button>
-                            </div>
-
-                        </CardBlock>
-
-                    ))}
-                    <Popup trigger={<button type="button" id={listDetail._id} className="btn btn-lg btn-light w-100">add card</button>} position='bottom center'>
-                        <form className="form">
-                            <input className="form-input" id={listDetail._id} type='text' name="Title" onChange={handleInput} value={Title} placeholder="Card Title"></input>
-                            <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
-                            <button className="btn btn-light m-1" onClick={handleAddCard}>Submit</button>
-                        </form >
-                    </Popup>
-
-                </ListPage>
-            ))}
-
-        </div>
+            </div>
+          
+       
     )
 };
 export default ListCard;
 
 
+ // <div className="my-2">
+          
+        //         <h4 className="text-white">{boards.bTitle}</h4>
+        //     {showListFrom ? (
+
+        //         <form className="form form-width">
+        //             <input className="form-input" id={boards._id} type='text' name="listTitle" onChange={handleListInput} value={listTitle} placeholder="List Title"></input>
+
+        //             <button className="btn btn-light m-1" onClick={openForm}>Cancel</button>
+        //             <button className="btn btn-light m-1" onClick={handleAddList}>Add </button>
+        //         </form >
+
+        //     ) : (
+        //         <button type="button" id={boards._id} className="btn btn-lg btn-light m-2" onClick={openListForm}>Add List</button>
+        //     )}
+
+        //     <div>
+        //         {loading ? (
+        //             <div> Loading...</div>
+        //         ) : (
+        //             <div className="flex-row" >
