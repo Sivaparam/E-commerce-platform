@@ -17,10 +17,12 @@ function Home() {
     <main className="flex-row mb-4">
 
       {Auth.loggedIn() ? (
+        <>
+        <h3 className='text-white'>Welcome! {userBoards.username}</h3>
         <div className='w-100'>
           <div >
             <Link className='btn btn-lg btn-light m-2' to="/board">
-              <span> Create Board </span>
+              <span > Create Board </span>
             </Link>
           </div>
           {loading ? (
@@ -31,6 +33,7 @@ function Home() {
 
           )}
         </div>
+        </>
       ) : (
         <div>
           <p> Please login/signup </p>
